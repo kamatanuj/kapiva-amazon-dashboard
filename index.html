@@ -3,188 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapiva Amazon.in Dashboard</title>
+    <title>Kapiva Amazon Dashboard - Data Export</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .scraped-row { background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); }
-        .pending-row { background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%); }
-        .price-tag { font-weight: bold; color: #B12704; }
-        .rating { color: #FFA41C; }
-        .in-stock { color: #28a745; }
-        .out-stock { color: #dc3545; }
-        .category-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; }
-    </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="container mx-auto px-4 py-8">
-        <header class="mb-8">
+        
+        <header class="mb-8 text-center">
             <h1 class="text-4xl font-bold text-gray-800 mb-2">
                 <i class="fas fa-chart-line text-green-600 mr-3"></i>Kapiva Amazon.in Dashboard
             </h1>
-            <p class="text-gray-600">Competitive Analysis • Amazon India Product Data</p>
+            <p class="text-gray-600 text-lg">Competitive Analysis • Product Data Export</p>
         </header>
 
-        <div id="stats-cards" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <!-- Download Links Section -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8 border-t-4 border-blue-500">
+            <h2 class="text-2xl font-bold mb-2 text-gray-800">
+                <i class="fas fa-cloud-download-alt text-blue-600 mr-2"></i>Download Complete Dataset
+            </h2>
+            <p class="text-gray-600 mb-6">Export all 50 ASINs in your preferred format:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Excel Download -->
+                <a href="kapiva_amazon_complete.xlsx" 
+                   download
+                   class="bg-green-600 text-white p-6 rounded-lg flex items-center justify-center hover:bg-green-700 shadow-md transition-all">
+                    <div class="text-center">
+                        <i class="fas fa-file-excel text-4xl mb-2"></i>
+                        <div class="font-bold text-lg">Download Excel</div>
+                        <div class="text-sm opacity-90 mt-1">.xlsx format<br>Multiple sheets included</div>
+                    </div>
+                </a>
+                
+                <!-- CSV Download -->
+                <a href="kapiva_amazon_complete.csv" 
+                   download
+                   class="bg-blue-600 text-white p-6 rounded-lg flex items-center justify-center hover:bg-blue-700 shadow-md transition-all">
+                    <div class="text-center">
+                        <i class="fas fa-file-csv text-4xl mb-2"></i>
+                        <div class="font-bold text-lg">Download CSV</div>
+                        <div class="text-sm opacity-90 mt-1">.csv format<br>Single spreadsheet</div>
+                    </div>
+                </a>
+                
+                <!-- JSON Download -->
+                <a href="dashboard_complete.json" 
+                   download
+                   class="bg-purple-600 text-white p-6 rounded-lg flex items-center justify-center hover:bg-purple-700 shadow-md transition-all">
+                    <div class="text-center">
+                        <i class="fas fa-file-code text-4xl mb-2"></i>
+                        <div class="font-bold text-lg">Download JSON</div>
+                        <div class="text-sm opacity-90 mt-1">.json format<br>Raw data export</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
-                <div class="text-gray-500 text-sm">Total ASINs</div>
-                <div class="text-3xl font-bold text-gray-800" id="total-asins">Loading...</div>
+                <div class="text-gray-500 text-sm uppercase tracking-wide">Total ASINs</div>
+                <div class="text-3xl font-bold text-gray-800 mt-1">50</div>
             </div>
             <div class="bg-green-100 rounded-lg shadow p-6 border-l-4 border-green-500">
-                <div class="text-green-700 text-sm">With Amazon Data</div>
-                <div class="text-3xl font-bold text-green-800" id="scraped-count">Loading...</div>
+                <div class="text-green-800 text-sm uppercase tracking-wide font-semibold">With Amazon Data</div>
+                <div class="text-3xl font-bold text-green-900 mt-1">13</div>
             </div>
             <div class="bg-yellow-100 rounded-lg shadow p-6 border-l-4 border-yellow-500">
-                <div class="text-yellow-700 text-sm">Pending Data</div>
-                <div class="text-3xl font-bold text-yellow-800" id="pending-count">Loading...</div>
+                <div class="text-yellow-800 text-sm uppercase tracking-wide font-semibold">Not Found</div>
+                <div class="text-3xl font-bold text-yellow-900 mt-1">37</div>
             </div>
             <div class="bg-blue-100 rounded-lg shadow p-6 border-l-4 border-blue-500">
-                <div class="text-blue-700 text-sm">Avg Rating</div>
-                <div class="text-3xl font-bold text-blue-800" id="avg-rating">Loading...</div>
+                <div class="text-blue-800 text-sm uppercase tracking-wide font-semibold">Avg Rating</div>
+                <div class="text-3xl font-bold text-blue-900 mt-1">4.00★</div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h2 class="text-2xl font-bold"><i class="fas fa-list mr-2"></i>Product Data</h2>
-                <div class="flex gap-2">
-                    <button onclick="filterTable('all')" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">All</button>
-                    <button onclick="filterTable('scraped')" class="px-4 py-2 bg-green-200 rounded hover:bg-green-300">Scraped</button>
-                    <button onclick="filterTable('pending')" class="px-4 py-2 bg-yellow-200 rounded hover:bg-yellow-300">Pending</button>
-                </div>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full" id="products-table">
-                    <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="p-4 text-left">Status</th>
-                            <th class="p-4 text-left">ASIN</th>
-                            <th class="p-4 text-left">Product</th>
-                            <th class="p-4 text-left">Category</th>
-                            <th class="p-4 text-left">Price</th>
-                            <th class="p-4 text-left">Rating</th>
-                            <th class="p-4 text-left">Reviews</th>
-                            <th class="p-4 text-left">Stock</th>
-                            <th class="p-4 text-left">Seller</th>
-                        </tr>
-                    </thead>
-                    <tbody id="products-body">
-                        <tr><td colspan="9" class="p-8 text-center text-gray-500">Loading data...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <footer class="mt-8 text-center text-gray-500 text-sm">
-            <p>Last Updated: <span id="last-updated"></span></p>
-            <p class="mt-1">Data Source: Apify Amazon Scraper • Apify User: nonstop_foil</p>
+        <footer class="mt-12 text-center text-gray-500 text-sm">
+            <p>Last Updated: June 2026</p>
+            <p class="mt-2">Data Sources: Apify + ScrapingBee • Dashboard v2.0</p>
         </footer>
     </div>
-
-    <script>
-        let allProducts = [];
-
-        async function loadData() {
-            try {
-                const response = await fetch('./dashboard_data.json?t=' + Date.now());
-                const data = await response.json();
-                
-                allProducts = data.kapiva_products;
-                
-                // Update stats
-                const scraped = allProducts.filter(p => p.status === 'scraped');
-                const pending = allProducts.filter(p => p.status === 'pending');
-                
-                document.getElementById('total-asins').textContent = allProducts.length;
-                document.getElementById('scraped-count').textContent = scraped.length;
-                document.getElementById('pending-count').textContent = pending.length;
-                
-                const avgRating = scraped.length > 0 
-                    ? (scraped.reduce((sum, p) => sum + (p.rating || 0), 0) / scraped.length).toFixed(2)
-                    : 'N/A';
-                document.getElementById('avg-rating').textContent = avgRating + '★';
-                document.getElementById('last-updated').textContent = new Date(data.metadata.last_updated).toLocaleString();
-                
-                renderTable(allProducts);
-                
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('products-body').innerHTML = 
-                    '<tr><td colspan="9" class="p-8 text-center text-red-500">Error loading data: ' + 
-                    error.message + '</td></tr>';
-            }
-        }
-
-        function renderTable(products) {
-            const tbody = document.getElementById('products-body');
-            
-            if (products.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" class="p-8 text-center text-gray-500">No products found</td></tr>';
-                return;
-            }
-            
-            tbody.innerHTML = products.map(p => {
-                const isScraped = p.status === 'scraped';
-                const rowClass = isScraped ? 'scraped-row' : 'pending-row';
-                const statusIcon = isScraped ? '✅' : '⏳';
-                const statusText = isScraped ? 'Data Available' : 'Pending';
-                
-                return `
-                    <tr class="${rowClass} border-b hover:opacity-90">
-                        <td class="p-4">
-                            <span class="font-medium">${statusIcon} ${statusText}</span>
-                        </td>
-                        <td class="p-4 font-mono text-sm">
-                            <a href="${p.url}" target="_blank" class="text-blue-600 hover:underline">${p.asin}</a>
-                        </td>
-                        <td class="p-4">
-                            <div class="font-medium">${p.name || p.title || 'N/A'}</div>
-                            ${p.title && p.title !== p.name ? `<div class="text-xs text-gray-500 mt-1">${p.title.substring(0, 60)}...</div>` : ''}
-                        </td>
-                        <td class="p-4">
-                            <span class="category-badge bg-gray-200">${p.category}</span>
-                        </td>
-                        <td class="p-4">
-                            ${isScraped && p.price ? `
-                                <div class="price-tag">₹${p.price}</div>
-                                ${p.mrp && p.mrp !== p.price ? `<div class="text-sm text-gray-500 line-through">₹${p.mrp}</div>` : ''}
-                            ` : '<span class="text-gray-400">-</span>'}
-                        </td>
-                        <td class="p-4">
-                            ${isScraped && p.rating ? `
-                                <span class="rating">★ ${p.rating}</span>
-                            ` : '<span class="text-gray-400">-</span>'}
-                        </td>
-                        <td class="p-4">
-                            ${isScraped && p.reviews ? p.reviews.toLocaleString() : '<span class="text-gray-400">-'}
-                        </td>
-                        <td class="p-4">
-                            ${isScraped ? `
-                                <span class="${p.stock ? 'in-stock' : 'out-stock'}">
-                                    ${p.stock ? '✅ In Stock' : '❌ Out of Stock'}
-                                </span>
-                            ` : '<span class="text-gray-400">-</span>'}
-                        </td>
-                        <td class="p-4 text-sm">
-                            ${isScraped && p.seller ? p.seller : '<span class="text-gray-400">-'}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function filterTable(status) {
-            if (status === 'all') {
-                renderTable(allProducts);
-            } else if (status === 'scraped') {
-                renderTable(allProducts.filter(p => p.status === 'scraped'));
-            } else if (status === 'pending') {
-                renderTable(allProducts.filter(p => p.status === 'pending'));
-            }
-        }
-
-        // Load data on page load
-        loadData();
-    </script>
 </body>
 </html>
