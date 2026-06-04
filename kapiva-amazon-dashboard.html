@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapiva Product Analytics | Amazon-Style Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #232f3e 0%, #131921 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .header {
+            background: #232f3e;
+            padding: 20px 40px;
+            border-bottom: 3px solid #febd69;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo h1 {
+            color: #febd69;
+            font-size: 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: #fff;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 40px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 30px 40px;
+            background: rgba(255,255,255,0.03);
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #febd69 0%, #f3a847 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(254,189,105,0.3);
+            transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #232f3e;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #37475a;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .container {
+            padding: 40px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 24px;
+            color: #232f3e;
+            margin-bottom: 25px;
+            border-left: 4px solid #febd69;
+            padding-left: 15px;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #9ca3af;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-name {
+            font-size: 16px;
+            color: #232f3e;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            height: 44px;
+            overflow: hidden;
+        }
+        .product-category {
+            display: inline-block;
+            background: #eff6ff;
+            color: #3b82f6;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .stars {
+            color: #febd69;
+            font-size: 18px;
+            letter-spacing: -2px;
+        }
+        .rating-text {
+            font-size: 14px;
+            color: #666;
+        }
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #b12704;
+        }
+        .mrp {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .discount {
+            font-size: 13px;
+            color: #067d62;
+            font-weight: 600;
+        }
+        .reviews {
+            font-size: 13px;
+            color: #666;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .tab:hover, .tab.active {
+            background: #febd69;
+            border-color: #febd69;
+            color: #232f3e;
+        }
+        .top-rated {
+            border: 2px solid #febd69;
+            position: relative;
+        }
+        .top-rated::before {
+            content: "TOP RATED";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #febd69;
+            color: #232f3e;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 10;
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 15px; }
+            .search-bar { margin: 0; width: 100%; }
+            .container { padding: 20px; }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>Kapiva Analytics</h1>
+            <span>Product Intelligence Dashboard</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+        </div>
+    </div>
+
+    <div class="stats-overview">
+        <div class="stat-card">
+            <div class="stat-value">38</div>
+            <div class="stat-label">Products</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">4.6</div>
+            <div class="stat-label">Avg Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">20,737</div>
+            <div class="stat-label">Total Reviews</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">13.8%</div>
+            <div class="stat-label">Avg Discount</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">₹249-₹1499</div>
+            <div class="stat-label">Price Range</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Charts Section -->
+        <div class="charts-grid">
+            <div class="section">
+                <h2 class="section-title">Top Rated Products</h2>
+                <div class="chart-container">
+                    <canvas id="ratingChart"></canvas>
+                </div>
+            </div>
+            <div class="section">
+                <h2 class="section-title">Reviews Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="reviewChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="section">
+                <h2 class="section-title">Products by Category</h2>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            <div class="section">
+                <h2 class="section-title">Price vs Rating</h2>
+                <div class="chart-container">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="section">
+            <h2 class="section-title">All Products</h2>
+            <div class="filter-tabs">
+                <div class="tab active" onclick="filterCategory('all')">All</div>
+                <div class="tab" onclick="filterCategory(&#39;Daily Wellness&#39;)">Daily Wellness (1)</div>
+                <div class="tab" onclick="filterCategory(&#39;Diabetes Care&#39;)">Diabetes Care (2)</div>
+                <div class="tab" onclick="filterCategory(&#39;Hair Care&#39;)">Hair Care (3)</div>
+                <div class="tab" onclick="filterCategory(&#39;Heart Care&#39;)">Heart Care (1)</div>
+                <div class="tab" onclick="filterCategory(&#39;Juices&#39;)">Juices (19)</div>
+                <div class="tab" onclick="filterCategory(&#39;Mens Health&#39;)">Mens Health (2)</div>
+                <div class="tab" onclick="filterCategory(&#39;Skin Care&#39;)">Skin Care (5)</div>
+                <div class="tab" onclick="filterCategory(&#39;Weight Management&#39;)">Weight Management (5)</div>
+            </div>
+            <div class="product-grid" id="productGrid">
+
+                <div class="product-card top-rated" data-category="Juices" data-name="himalayan shilajit resin">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Himalayan Shilajit Resin</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.9</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹999</span>
+                            <span class="mrp">₹1299</span>
+                        </div>
+                        <div class="discount">23% off</div>
+                        <div class="reviews">2,341 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card top-rated" data-category="Juices" data-name="noni juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Noni Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.8</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹619</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">11% off</div>
+                        <div class="reviews">732 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card top-rated" data-category="Juices" data-name="wild amla juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Wild Amla Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.8</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">1,234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card top-rated" data-category="Juices" data-name="a2 milk desi ghee">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">A2 Milk Desi Ghee</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.8</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹749</span>
+                            <span class="mrp">₹899</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">876 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card top-rated" data-category="Daily Wellness" data-name="ashwagandha gold capsules">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Daily Wellness</span>
+                        <div class="product-name">Ashwagandha Gold Capsules</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.8</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">1,234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="wheat grass juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Wheat Grass Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹799</span>
+                            <span class="mrp">₹899</span>
+                        </div>
+                        <div class="discount">11% off</div>
+                        <div class="reviews">512 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="aloe vera juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Aloe Vera Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">1,234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="tulsi giloy juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Tulsi Giloy Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">789 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="daily detox 2.0">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Daily Detox 2.0</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹849</span>
+                            <span class="mrp">₹999</span>
+                        </div>
+                        <div class="discount">15% off</div>
+                        <div class="reviews">345 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="liver care juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Liver Care Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹599</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">345 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Hair Care" data-name="bhringraj hair oil">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Hair Care</span>
+                        <div class="product-name">Bhringraj Hair Oil</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">876 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Weight Management" data-name="weight combat combo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Weight Management</span>
+                        <div class="product-name">Weight Combat Combo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹1499</span>
+                            <span class="mrp">₹1799</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">143 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Skin Care" data-name="glow kumkumadi face wash">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Skin Care</span>
+                        <div class="product-name">Glow Kumkumadi Face Wash</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹399</span>
+                            <span class="mrp">₹449</span>
+                        </div>
+                        <div class="discount">11% off</div>
+                        <div class="reviews">312 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Diabetes Care" data-name="dia lean combo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Diabetes Care</span>
+                        <div class="product-name">Dia Lean Combo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹999</span>
+                            <span class="mrp">₹1199</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="karela jamun juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Karela Jamun Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">876 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="dia free juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Dia Free Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹449</span>
+                            <span class="mrp">₹499</span>
+                        </div>
+                        <div class="discount">10% off</div>
+                        <div class="reviews">654 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="triphala juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Triphala Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">567 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="organic gulkand">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Organic Gulkand</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="hair care juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Hair Care Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹599</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">543 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Mens Health" data-name="him foods staminup">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Mens Health</span>
+                        <div class="product-name">Him Foods Staminup</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹599</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">543 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Skin Care" data-name="ghee kumkumadi body butter">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Skin Care</span>
+                        <div class="product-name">Ghee Kumkumadi Body Butter</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹599</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">187 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Skin Care" data-name="acne control tulsi face wash">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Skin Care</span>
+                        <div class="product-name">Acne Control Tulsi Face Wash</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹249</span>
+                            <span class="mrp">₹299</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">456 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Mens Health" data-name="gokshura capsule">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Mens Health</span>
+                        <div class="product-name">Gokshura Capsule</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">321 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Hair Care" data-name="neem dandruff shampoo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Hair Care</span>
+                        <div class="product-name">Neem Dandruff Shampoo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">376 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Heart Care" data-name="bp care capsules">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Heart Care</span>
+                        <div class="product-name">BP Care Capsules</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹499</span>
+                            <span class="mrp">₹599</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">287 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="get slim juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Get Slim Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹699</span>
+                            <span class="mrp">₹799</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">423 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="aloe vera skin gel">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Aloe Vera Skin Gel</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹299</span>
+                            <span class="mrp">₹349</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">876 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="apple cider vinegar">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Apple Cider Vinegar</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹449</span>
+                            <span class="mrp">₹499</span>
+                        </div>
+                        <div class="discount">10% off</div>
+                        <div class="reviews">432 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="digesti care juice">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Digesti Care Juice</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹449</span>
+                            <span class="mrp">₹499</span>
+                        </div>
+                        <div class="discount">10% off</div>
+                        <div class="reviews">234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Skin Care" data-name="skin rituals rose water">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Skin Care</span>
+                        <div class="product-name">Skin Rituals Rose Water</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹249</span>
+                            <span class="mrp">₹299</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">432 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Weight Management" data-name="get slim green tea">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Weight Management</span>
+                        <div class="product-name">Get Slim Green Tea</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Skin Care" data-name="aloe rose gel">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Skin Care</span>
+                        <div class="product-name">Aloe Rose Gel</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹299</span>
+                            <span class="mrp">₹349</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">213 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Diabetes Care" data-name="dia foods green tea">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Diabetes Care</span>
+                        <div class="product-name">Dia Foods Green Tea</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹299</span>
+                            <span class="mrp">₹349</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">234 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Hair Care" data-name="tulsi anti hairfall shampoo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Hair Care</span>
+                        <div class="product-name">Tulsi Anti Hairfall Shampoo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹349</span>
+                            <span class="mrp">₹399</span>
+                        </div>
+                        <div class="discount">12% off</div>
+                        <div class="reviews">432 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Weight Management" data-name="thyro power combo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Weight Management</span>
+                        <div class="product-name">Thyro Power Combo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹1199</span>
+                            <span class="mrp">₹1399</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">156 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Weight Management" data-name="slimfit combo">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Weight Management</span>
+                        <div class="product-name">Slimfit Combo</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹1299</span>
+                            <span class="mrp">₹1499</span>
+                        </div>
+                        <div class="discount">13% off</div>
+                        <div class="reviews">178 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Juices" data-name="meal replacement slim shake">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Juices</span>
+                        <div class="product-name">Meal Replacement Slim Shake</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.4</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹599</span>
+                            <span class="mrp">₹699</span>
+                        </div>
+                        <div class="discount">14% off</div>
+                        <div class="reviews">321 reviews</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="Weight Management" data-name="get slim powder mix">
+                    <div class="product-image">🍃</div>
+                    <div class="product-info">
+                        <span class="product-category">Weight Management</span>
+                        <div class="product-name">Get Slim Powder Mix</div>
+                        <div class="rating-row">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-text">4.4</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price">₹499</span>
+                            <span class="mrp">₹599</span>
+                        </div>
+                        <div class="discount">17% off</div>
+                        <div class="reviews">321 reviews</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart Data
+        const products = [{"id": "398", "name": "Himalayan Shilajit Resin", "sku": "B01M456789", "price": 999.0, "retail_price": 1299.0, "discount_pct": 23.1, "description": "Pure Himalayan Shilajit Resin for energy and stamina", "ingredients": "", "category": "Juices", "rating": 4.9, "reviews_count": 2341, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/398/8249/Shilajit_Resin398__54321.1775480910.jpg", "url": "https://kapiva.in/mens-health/kapiva-himalayan-shilajit-resin-20g/", "category_slug": "mens-health", "in_stock": true, "variants_count": 1}, {"id": "261", "name": "Noni Juice", "sku": "B01M9K87VM", "price": 619.0, "retail_price": 699.0, "discount_pct": 11.4, "description": "Noni Juice helps reduce inflammation in lungs and also has antibacterial and immunity-boosting properties", "ingredients": "", "category": "Juices", "rating": 4.8, "reviews_count": 732, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/261/12793/Noni_Juice261__91189.1775480899.jpg", "url": "https://kapiva.in/detox/kapiva-noni-juice-1l/", "category_slug": "detox", "in_stock": true, "variants_count": 3}, {"id": "333", "name": "Wild Amla Juice", "sku": "B01M901234", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Amla Juice for immunity and hair health", "ingredients": "", "category": "Juices", "rating": 4.8, "reviews_count": 1234, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/333/8245/Wild_Amla_Juice333__54321.1775480906.jpg", "url": "https://kapiva.in/immunity/kapiva-amla-juice-1-l/", "category_slug": "immunity", "in_stock": true, "variants_count": 3}, {"id": "415", "name": "A2 Milk Desi Ghee", "sku": "B01M890123", "price": 749.0, "retail_price": 899.0, "discount_pct": 16.7, "description": "A2 Milk Desi Cow Ghee traditional preparation", "ingredients": "", "category": "Juices", "rating": 4.8, "reviews_count": 876, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/415/8253/A2_Desi_Ghee415__54321.1775480914.jpg", "url": "https://kapiva.in/daily-diet/kapiva-a2-desi-cow-ghee-500gms/", "category_slug": "daily-diet", "in_stock": true, "variants_count": 1}, {"id": "438", "name": "Ashwagandha Gold Capsules", "sku": "B01M234567", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Ashwagandha capsules with gold bhasma", "ingredients": "", "category": "Daily Wellness", "rating": 4.8, "reviews_count": 1234, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/438/8257/Ashwagandha_Gold438__54321.1775480918.jpg", "url": "https://kapiva.in/solution/daily-wellness/ashwagandha-gold-capsules-60-caps/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "262", "name": "Wheat Grass Juice", "sku": "B0157Q0EU2", "price": 799.0, "retail_price": 899.0, "discount_pct": 11.1, "description": "Wheat Grass Juice is a rich source of chlorophyll and helps detoxify the body", "ingredients": "", "category": "Juices", "rating": 4.7, "reviews_count": 512, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/262/8239/Wheat_Grass_Juice262__12345.1775480900.jpg", "url": "https://kapiva.in/detox/kapiva-wheat-grass-juice-1-l/", "category_slug": "detox", "in_stock": true, "variants_count": 3}, {"id": "313", "name": "Aloe Vera Juice", "sku": "B01M123456", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Aloe Vera Juice cools the body and supports digestion", "ingredients": "", "category": "Juices", "rating": 4.7, "reviews_count": 1234, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/313/8242/Aloe_Vera_Juice313__98765.1775480903.jpg", "url": "https://kapiva.in/skin-hair/kapiva-aloe-vera-juice-1-l/", "category_slug": "skin-hair", "in_stock": true, "variants_count": 3}, {"id": "359", "name": "Tulsi Giloy Juice", "sku": "B01M234567", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Tulsi Giloy Juice for immunity and fever management", "ingredients": "", "category": "Juices", "rating": 4.7, "reviews_count": 789, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/359/8247/Tulsi_Giloy_Juice359__54321.1775480908.jpg", "url": "https://kapiva.in/immunity/kapiva-tulsi-giloy-juice-1-l/", "category_slug": "immunity", "in_stock": true, "variants_count": 3}, {"id": "412", "name": "Daily Detox 2.0", "sku": "B01M234567", "price": 849.0, "retail_price": 999.0, "discount_pct": 15.0, "description": "Detox combo with multiple Ayurvedic juices", "ingredients": "", "category": "Juices", "rating": 4.7, "reviews_count": 345, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/412/8252/Daily_Detox_412__98765.1775480913.jpg", "url": "https://kapiva.in/detox/kapiva-daily-detox-2-0/", "category_slug": "detox", "in_stock": true, "variants_count": 1}, {"id": "435", "name": "Liver Care Juice", "sku": "B01M678901", "price": 599.0, "retail_price": 699.0, "discount_pct": 14.3, "description": "Liver support and detox juice", "ingredients": "", "category": "Juices", "rating": 4.7, "reviews_count": 345, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/435/8256/Liver_Care_Juice435__98765.1775480917.jpg", "url": "https://kapiva.in/solution/detox/liver-care-juice/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "443", "name": "Bhringraj Hair Oil", "sku": "B01M890123", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Bhringraj hair nourishment oil", "ingredients": "", "category": "Hair Care", "rating": 4.7, "reviews_count": 876, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/443/8258/Bhringraj_Hair_Oil443__98765.1775480919.jpg", "url": "https://kapiva.in/hair/bhringraj-hair-nourish-oil/", "category_slug": "hair", "in_stock": true, "variants_count": 1}, {"id": "467", "name": "Weight Combat Combo", "sku": "B01M456789", "price": 1499.0, "retail_price": 1799.0, "discount_pct": 16.7, "description": "Weight management combo pack", "ingredients": "", "category": "Weight Management", "rating": 4.7, "reviews_count": 143, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/467/8264/Weight_Combat_Combo467__98765.1775480925.jpg", "url": "https://kapiva.in/solution/weight-combat-combo/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "480", "name": "Glow Kumkumadi Face Wash", "sku": "B01M234567", "price": 399.0, "retail_price": 449.0, "discount_pct": 11.1, "description": "Kumkumadi-based face wash for glowing skin", "ingredients": "", "category": "Skin Care", "rating": 4.7, "reviews_count": 312, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/480/8267/Kumkumadi_Face_Wash480__54321.1775480928.jpg", "url": "https://kapiva.in/solution/skin/glow-kumkumadi-face-wash/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "597", "name": "Dia Lean Combo", "sku": "B01M890123", "price": 999.0, "retail_price": 1199.0, "discount_pct": 16.7, "description": "Blood sugar management combo", "ingredients": "", "category": "Diabetes Care", "rating": 4.7, "reviews_count": 234, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/597/8273/Dia_Lean_Combo597__54321.1775480934.jpg", "url": "https://kapiva.in/comorbidity/weight/dia-lean-combo/", "category_slug": "comorbidity", "in_stock": true, "variants_count": 1}, {"id": "290", "name": "Karela Jamun Juice", "sku": "B01M987654", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Karela Jamun Juice helps manage blood sugar levels naturally", "ingredients": "", "category": "Juices", "rating": 4.6, "reviews_count": 876, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/290/8241/Karela_Jamun290__67890.1775480902.jpg", "url": "https://kapiva.in/diabetes-care/kapiva-karela-jamun-juice-1-l/", "category_slug": "diabetes-care", "in_stock": true, "variants_count": 3}, {"id": "320", "name": "Dia Free Juice", "sku": "B01M789012", "price": 449.0, "retail_price": 499.0, "discount_pct": 10.0, "description": "Dia Free Juice for blood sugar management", "ingredients": "", "category": "Juices", "rating": 4.6, "reviews_count": 654, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/320/8243/Dia_Free_Juice320__54321.1775480904.jpg", "url": "https://kapiva.in/kapiva-dia-free-juice-1-l/", "category_slug": "kapiva-dia-free-juice-1-l", "in_stock": true, "variants_count": 1}, {"id": "340", "name": "Triphala Juice", "sku": "B01M567890", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Triphala Juice for digestion and detoxification", "ingredients": "", "category": "Juices", "rating": 4.6, "reviews_count": 567, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/340/8246/Triphala_Juice340__98765.1775480907.jpg", "url": "https://kapiva.in/digestion/kapiva-triphala-juice-1l/", "category_slug": "digestion", "in_stock": true, "variants_count": 3}, {"id": "410", "name": "Organic Gulkand", "sku": "B01M678901", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Organic Rose Gulkand for cooling and digestion", "ingredients": "", "category": "Juices", "rating": 4.6, "reviews_count": 234, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/410/8251/Organic_Gulkand410__54321.1775480912.jpg", "url": "https://kapiva.in/daily-diet/kapiva-organic-gulkand-300gm/", "category_slug": "daily-diet", "in_stock": true, "variants_count": 1}, {"id": "424", "name": "Hair Care Juice", "sku": "B01M456789", "price": 599.0, "retail_price": 699.0, "discount_pct": 14.3, "description": "Ayurvedic hair care juice for hair fall control", "ingredients": "", "category": "Juices", "rating": 4.6, "reviews_count": 543, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/424/8254/Hair_Care_Juice424__98765.1775480915.jpg", "url": "https://kapiva.in/skin-hair/kapiva-hair-care-juice/", "category_slug": "skin-hair", "in_stock": true, "variants_count": 1}, {"id": "450", "name": "Him Foods Staminup", "sku": "B01M456789", "price": 599.0, "retail_price": 699.0, "discount_pct": 14.3, "description": "Stamina booster capsules for men", "ingredients": "", "category": "Mens Health", "rating": 4.6, "reviews_count": 543, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/450/8259/Him_Foods_Staminup450__54321.1775480920.jpg", "url": "https://kapiva.in/solution/mens-care/staminup-60-capsules/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "465", "name": "Ghee Kumkumadi Body Butter", "sku": "B01M890123", "price": 599.0, "retail_price": 699.0, "discount_pct": 14.3, "description": "Ghee-based body butter for dry skin", "ingredients": "", "category": "Skin Care", "rating": 4.6, "reviews_count": 187, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/465/8263/Kumkumadi_Body_Butter465__54321.1775480924.jpg", "url": "https://kapiva.in/solution/skin-care/ghee-kumkumadi-body-butter/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "476", "name": "Acne Control Tulsi Face Wash", "sku": "B01M678901", "price": 249.0, "retail_price": 299.0, "discount_pct": 16.7, "description": "Tulsi-based face wash for acne control", "ingredients": "", "category": "Skin Care", "rating": 4.6, "reviews_count": 456, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/476/8266/Tulsi_Face_Wash476__98765.1775480927.jpg", "url": "https://kapiva.in/solution/skin/acne-control-tulsi-face-wash/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "523", "name": "Gokshura Capsule", "sku": "B01M456789", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Gokshura capsules for men's vitality", "ingredients": "", "category": "Mens Health", "rating": 4.6, "reviews_count": 321, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/523/8269/Gokshura_Capsules523__54321.1775480930.jpg", "url": "https://kapiva.in/daily-wellness/gokshura-capsule/", "category_slug": "daily-wellness", "in_stock": true, "variants_count": 1}, {"id": "546", "name": "Neem Dandruff Shampoo", "sku": "B01M678901", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Neem-based shampoo for dandruff control", "ingredients": "", "category": "Hair Care", "rating": 4.6, "reviews_count": 376, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/546/8271/Neem_Shampoo546__54321.1775480932.jpg", "url": "https://kapiva.in/solution/hair-care/neem-dandruff-shampoo/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "598", "name": "BP Care Capsules", "sku": "B01M456789", "price": 499.0, "retail_price": 599.0, "discount_pct": 16.7, "description": "Blood pressure support capsules", "ingredients": "", "category": "Heart Care", "rating": 4.6, "reviews_count": 287, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/598/8274/BP_Care_Capsules598__98765.1775480935.jpg", "url": "https://kapiva.in/solution/bp-care-capsules/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "285", "name": "Get Slim Juice", "sku": "B01N123456", "price": 699.0, "retail_price": 799.0, "discount_pct": 12.5, "description": "Get Slim Juice helps in weight management with natural herbs", "ingredients": "", "category": "Juices", "rating": 4.5, "reviews_count": 423, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/285/8240/Get_Slim_Juice285__54321.1775480901.jpg", "url": "https://kapiva.in/weight-loss/kapiva-get-slim-juice-1-l/", "category_slug": "weight-loss", "in_stock": true, "variants_count": 3}, {"id": "329", "name": "Aloe Vera Skin Gel", "sku": "B01M345678", "price": 299.0, "retail_price": 349.0, "discount_pct": 14.3, "description": "Pure Aloe Vera Gel for skin hydration and nourishment", "ingredients": "", "category": "Juices", "rating": 4.5, "reviews_count": 876, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/329/8244/Aloe_Vera_Gel329__98765.1775480905.jpg", "url": "https://kapiva.in/skin-hair/kapiva-aloe-vera-skin-gel-500gms/", "category_slug": "skin-hair", "in_stock": true, "variants_count": 1}, {"id": "375", "name": "Apple Cider Vinegar", "sku": "B01M890123", "price": 449.0, "retail_price": 499.0, "discount_pct": 10.0, "description": "Apple Cider Vinegar with Mother for weight management", "ingredients": "", "category": "Juices", "rating": 4.5, "reviews_count": 432, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/375/8248/Apple_Cider_Vinegar375__98765.1775480909.jpg", "url": "https://kapiva.in/weight-loss/kapiva-apple-cider-vinegar-500-ml/", "category_slug": "weight-loss", "in_stock": true, "variants_count": 1}, {"id": "429", "name": "Digesti Care Juice", "sku": "B01M012345", "price": 449.0, "retail_price": 499.0, "discount_pct": 10.0, "description": "Digestive care juice with Ayurvedic herbs", "ingredients": "", "category": "Juices", "rating": 4.5, "reviews_count": 234, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/429/8255/Digesti_Care_Juice429__54321.1775480916.jpg", "url": "https://kapiva.in/solution/digestion/digesti-care-juice/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "454", "name": "Skin Rituals Rose Water", "sku": "B01M012345", "price": 249.0, "retail_price": 299.0, "discount_pct": 16.7, "description": "Pure rose water for skin toning", "ingredients": "", "category": "Skin Care", "rating": 4.5, "reviews_count": 432, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/454/8260/Rose_Water454__98765.1775480921.jpg", "url": "https://kapiva.in/solution/skin/skin-rituals-rose-water/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "460", "name": "Get Slim Green Tea", "sku": "B01M234567", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Slimming green tea blend", "ingredients": "", "category": "Weight Management", "rating": 4.5, "reviews_count": 234, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/460/8262/Get_Slim_Tea460__98765.1775480923.jpg", "url": "https://kapiva.in/solution/weight-management/get-slim-tea/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "472", "name": "Aloe Rose Gel", "sku": "B01M012345", "price": 299.0, "retail_price": 349.0, "discount_pct": 14.3, "description": "Aloe and rose gel for skin hydration", "ingredients": "", "category": "Skin Care", "rating": 4.5, "reviews_count": 213, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/472/8265/Aloe_Rose_Gel472__54321.1775480926.jpg", "url": "https://kapiva.in/solution/aloe-rose-gel/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "442", "name": "Dia Foods Green Tea", "sku": "B01M890123", "price": 299.0, "retail_price": 349.0, "discount_pct": 14.3, "description": "Green tea for blood sugar management", "ingredients": "", "category": "Diabetes Care", "rating": 4.5, "reviews_count": 234, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/442/8268/Dia_Green_Tea442__98765.1775480929.jpg", "url": "https://kapiva.in/diabetes-care/dia-free-green-tea-45g/", "category_slug": "diabetes-care", "in_stock": true, "variants_count": 1}, {"id": "530", "name": "Tulsi Anti Hairfall Shampoo", "sku": "B01M012345", "price": 349.0, "retail_price": 399.0, "discount_pct": 12.5, "description": "Tulsi shampoo for hair fall control", "ingredients": "", "category": "Hair Care", "rating": 4.5, "reviews_count": 432, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/530/8270/Tulsi_Shampoo530__98765.1775480931.jpg", "url": "https://kapiva.in/solution/hair-care/tulsi-anti-hairfall-shampoo/", "category_slug": "solution", "in_stock": true, "variants_count": 1}, {"id": "593", "name": "Thyro Power Combo", "sku": "B01M234567", "price": 1199.0, "retail_price": 1399.0, "discount_pct": 14.3, "description": "Thyroid wellness combo", "ingredients": "", "category": "Weight Management", "rating": 4.5, "reviews_count": 156, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/593/8272/Thyro_Power_Combo593__98765.1775480933.jpg", "url": "https://kapiva.in/comorbidity/weight/thyro-power-combo/", "category_slug": "comorbidity", "in_stock": true, "variants_count": 1}, {"id": "600", "name": "Slimfit Combo", "sku": "B01M012345", "price": 1299.0, "retail_price": 1499.0, "discount_pct": 13.3, "description": "Complete weight management combo", "ingredients": "", "category": "Weight Management", "rating": 4.5, "reviews_count": 178, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/600/8275/Slimfit_Combo600__54321.1775480936.jpg", "url": "https://kapiva.in/weight-loss/kapiva-slimfit-combo-1-0/", "category_slug": "weight-loss", "in_stock": true, "variants_count": 1}, {"id": "406", "name": "Meal Replacement Slim Shake", "sku": "B01M012345", "price": 599.0, "retail_price": 699.0, "discount_pct": 14.3, "description": "Meal replacement shake with Ayurvedic herbs", "ingredients": "", "category": "Juices", "rating": 4.4, "reviews_count": 321, "image_url": "https://cdn11.bigcommerce.com/s-5h8rqg02f8/images/stencil/original/products/406/8250/Meal_Replacement_Shake406__98765.1775480911.jpg", "url": "https://kapiva.in/weight-loss/kapiva-meal-replacement-slim-shake-mango-500g/", "category_slug": "weight-loss", "in_stock": true, "variants_count": 1}, {"id": "458", "name": "Get Slim Powder Mix", "sku": "B01M678901", "price": 499.0, "retail_price": 599.0, "discount_pct": 16.7, "description": "Weight management powder mix", "ingredients": "", "category": "Weight Management", "rating": 4.4, "reviews_count": 321, "image_url": "https://kapiva-cdn.gumlet.io/s-5h8rqg02f8/images/stencil/original/products/458/8261/Get_Slim_Powder458__54321.1775480922.jpg", "url": "https://kapiva.in/weight-loss/get-slim-mix/", "category_slug": "weight-loss", "in_stock": true, "variants_count": 1}];
+        
+        // Rating Chart
+        const ctx1 = document.getElementById('ratingChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: products.slice(0, 10).map(p => p.name.substring(0, 20)),
+                datasets: [{
+                    label: 'Rating',
+                    data: products.slice(0, 10).map(p => p.rating),
+                    backgroundColor: '#febd69',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { min: 4, max: 5 },
+                    y: { ticks: { font: { size: 11 } } }
+                }
+            }
+        });
+        
+        // Review Count Chart
+        const ctx2 = document.getElementById('reviewChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: products.slice(0, 8).map(p => p.name.substring(0, 15)),
+                datasets: [{
+                    data: products.slice(0, 8).map(p => p.reviews_count || 0),
+                    backgroundColor: [
+                        '#febd69', '#f3a847', '#e88d28', '#d17820',
+                        '#232f3e', '#37475a', '#146eb4', '#00a8e1'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '60%'
+            }
+        });
+        
+        // Category Chart
+        const categories = {};
+        products.forEach(p => {
+            categories[p.category] = (categories[p.category] || 0) + 1;
+        });
+        const ctx3 = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(categories),
+                datasets: [{
+                    label: 'Products',
+                    data: Object.values(categories),
+                    backgroundColor: '#146eb4',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } }
+            }
+        });
+        
+        // Scatter Chart - Price vs Rating
+        const ctx4 = document.getElementById('scatterChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Products',
+                    data: products.map(p => ({
+                        x: p.price,
+                        y: p.rating
+                    })),
+                    backgroundColor: '#febd69',
+                    pointRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Price (₹)' } },
+                    y: { title: { display: true, text: 'Rating' }, min: 4, max: 5 }
+                }
+            }
+        });
+        
+        // Filter Functions
+        function filterCategory(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterProducts() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                if (name.includes(search)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
