@@ -8,12 +8,10 @@
 <style>
 .table-container {overflow-x: auto; -webkit-overflow-scrolling: touch;}
 .data-table {min-width: 1000px;}
-.scraped-row {background: #d1fae5;}
-.scraped-row:hover {background: #a7f3d0;}
 .competitor-row {background: #fef3c7;}
 .competitor-row:hover {background: #fde68a;}
-.price-higher {color: #dc2626; font-weight: bold;}
 .price-lower {color: #16a34a; font-weight: bold;}
+.price-higher {color: #dc2626; font-weight: bold;}
 .header-kapiva {background: #065f46; color: white;}
 .header-competitor {background: #92400e; color: white;}
 .divider {background: #e5e7eb; width: 2px;}
@@ -22,335 +20,61 @@
 <body class="bg-gray-100">
 <div class="container mx-auto px-2 py-4 max-w-7xl">
 
-<!-- Header -->
 <header class="mb-6 text-center">
 <h1 class="text-2xl font-bold"><i class="fas fa-chart-line text-green-600 mr-2"></i>Kapiva Dashboard</h1>
-<p class="text-sm text-gray-600">13 ASINs + Competitor Analysis</p>
+<p class="text-sm text-gray-600">13 Products + 24 Competitors Analyzed</p>
 </header>
 
-<!-- Downloads -->
 <section class="bg-white rounded-lg shadow p-4 mb-6">
 <h2 class="text-lg font-bold mb-3"><i class="fas fa-download text-blue-600 mr-2"></i>Download Data</h2>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-<a href="kapiva_amazon_complete.xlsx" download class="bg-green-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-excel mr-2"></i>Excel (.xlsx)</a>
-<a href="kapiva_amazon_complete.csv" download class="bg-blue-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-csv mr-2"></i>CSV (.csv)</a>
-<a href="dashboard_complete.json" download class="bg-purple-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-code mr-2"></i>JSON (.json)</a>
+<a href="kapiva_amazon_complete.xlsx" download class="bg-green-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+<a href="kapiva_amazon_complete.csv" download class="bg-blue-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-csv mr-2"></i>CSV</a>
+<a href="dashboard_complete.json" download class="bg-purple-600 text-white p-3 rounded flex items-center"><i class="fas fa-file-code mr-2"></i>JSON</a>
 </div>
 </section>
 
-<!-- Kapiva Products -->
-<section class="bg-white rounded-lg shadow overflow-hidden mb-6">
-<div class="p-4 border-b bg-green-600 text-white">
-<h2 class="font-bold text-lg"><i class="fas fa-leaf mr-2"></i>Kapiva Products (13 Scraped)</h2>
-</div>
-<div class="table-container">
-<table class="data-table w-full text-sm">
-<thead class="bg-gray-800 text-white">
-<tr>
-<th class="p-3 text-left">ASIN</th>
-<th class="p-3 text-left">Product</th>
-<th class="p-3 text-left">Category</th>
-<th class="p-3 text-left">Price</th>
-<th class="p-3 text-left">MRP</th>
-<th class="p-3 text-left">Rating</th>
-<th class="p-3 text-left">Reviews</th>
-<th class="p-3 text-left">Stock</th>
-<th class="p-3 text-left">Seller</th>
-</tr>
-</thead>
-<tbody>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B07DRB3D5Z" target="_blank" class="text-blue-600">B07DRB3D5Z</a></td>
-<td class="p-3 font-medium">Kapiva Get Slim Juice - Health</td>
-<td class="p-3 text-xs">Weight Management</td>
-<td class="p-3 font-bold text-red-700">₹479</td>
-<td class="p-3 text-gray-500 line-through">₹515</td>
-<td class="p-3 text-yellow-600">★ 3.8</td>
-<td class="p-3">9,746</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B07GWPCCGX" target="_blank" class="text-blue-600">B07GWPCCGX</a></td>
-<td class="p-3 font-medium">Kapiva Certified A2 Gir Cow Gh</td>
-<td class="p-3 text-xs">Nutrition & Organics</td>
-<td class="p-3 font-bold text-red-700">₹846</td>
-<td class="p-3 text-gray-500 line-through">₹1077</td>
-<td class="p-3 text-yellow-600">★ 4</td>
-<td class="p-3">1,356</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B07MDK6FQR" target="_blank" class="text-blue-600">B07MDK6FQR</a></td>
-<td class="p-3 font-medium">Kapiva Plant Protein | 25g Pro</td>
-<td class="p-3 text-xs">Nutrition & Protein</td>
-<td class="p-3 font-bold text-red-700">₹1779</td>
-<td class="p-3 text-gray-500 line-through">₹2001</td>
-<td class="p-3 text-yellow-600">★ 3.9</td>
-<td class="p-3">757</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B07SZ43SWF" target="_blank" class="text-blue-600">B07SZ43SWF</a></td>
-<td class="p-3 font-medium">Kapiva Pure Aloe Vera Skin Gel</td>
-<td class="p-3 text-xs">Skin & Hair Care</td>
-<td class="p-3 font-bold text-red-700">₹339</td>
-<td class="p-3 text-gray-500 line-through">₹450</td>
-<td class="p-3 text-yellow-600">★ 4.2</td>
-<td class="p-3">6,176</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">Kapiva (Adret R</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B098QHFPVS" target="_blank" class="text-blue-600">B098QHFPVS</a></td>
-<td class="p-3 font-medium">Kapiva Liver Care Juice (1L) |</td>
-<td class="p-3 text-xs">Chronic Care</td>
-<td class="p-3 font-bold text-red-700">₹649</td>
-<td class="p-3 text-gray-500 line-through">₹655</td>
-<td class="p-3 text-yellow-600">★ 4.2</td>
-<td class="p-3">1,559</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B09BZNDYT2" target="_blank" class="text-blue-600">B09BZNDYT2</a></td>
-<td class="p-3 font-medium">Kapiva Original Himalayan Shil</td>
-<td class="p-3 text-xs">Men's Health & Stamina</td>
-<td class="p-3 font-bold text-red-700">₹813</td>
-<td class="p-3 text-gray-500 line-through">₹1499</td>
-<td class="p-3 text-yellow-600">★ 4</td>
-<td class="p-3">10,065</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B09MMH943Y" target="_blank" class="text-blue-600">B09MMH943Y</a></td>
-<td class="p-3 font-medium">Kapiva Get Slim Juice (2L) Bot</td>
-<td class="p-3 text-xs">Weight Management</td>
-<td class="p-3 font-bold text-red-700">₹978</td>
-<td class="p-3 text-gray-500 line-through">₹1029</td>
-<td class="p-3 text-yellow-600">★ 3.9</td>
-<td class="p-3">1,114</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B09N3B345J" target="_blank" class="text-blue-600">B09N3B345J</a></td>
-<td class="p-3 font-medium">Kapiva Skin Foods Glow Mix | A</td>
-<td class="p-3 text-xs">Skin & Hair Care</td>
-<td class="p-3 font-bold text-red-700">₹888</td>
-<td class="p-3 text-gray-500 line-through">₹1067</td>
-<td class="p-3 text-yellow-600">★ 3.7</td>
-<td class="p-3">2,457</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B09PDYXR4H" target="_blank" class="text-blue-600">B09PDYXR4H</a></td>
-<td class="p-3 font-medium">Kapiva Hair Care Juice (2L) | </td>
-<td class="p-3 text-xs">Skin & Hair Care</td>
-<td class="p-3 font-bold text-red-700">₹1452</td>
-<td class="p-3 text-gray-500 line-through">₹1698</td>
-<td class="p-3 text-yellow-600">★ 3.9</td>
-<td class="p-3">199</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">Kapiva (Adret R</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B09TFQ9TLZ" target="_blank" class="text-blue-600">B09TFQ9TLZ</a></td>
-<td class="p-3 font-medium">Kapiva Original Himalayan Shil</td>
-<td class="p-3 text-xs">Men's Health & Stamina</td>
-<td class="p-3 font-bold text-red-700">₹1648</td>
-<td class="p-3 text-gray-500 line-through">₹2998</td>
-<td class="p-3 text-yellow-600">★ 4.1</td>
-<td class="p-3">3,177</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B0B3DS83YC" target="_blank" class="text-blue-600">B0B3DS83YC</a></td>
-<td class="p-3 font-medium">Kapiva Ashwagandha Gold 60 Cap</td>
-<td class="p-3 text-xs">Men's Health & Stamina</td>
-<td class="p-3 font-bold text-red-700">₹359.0</td>
-<td class="p-3 text-gray-500 line-through">₹5.98</td>
-<td class="p-3 text-yellow-600">★ 4.1</td>
-<td class="p-3">0</td>
-<td class="p-3 text-green-600">In</td>
-<td class="p-3 text-xs">-</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B0BL3TN1QC" target="_blank" class="text-blue-600">B0BL3TN1QC</a></td>
-<td class="p-3 font-medium">Kapiva Shilajit/Shilajeet Gold</td>
-<td class="p-3 text-xs">Men's Health & Stamina</td>
-<td class="p-3 font-bold text-red-700">₹1285</td>
-<td class="p-3 text-gray-500 line-through">₹1549</td>
-<td class="p-3 text-yellow-600">★ 4.2</td>
-<td class="p-3">6,593</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr>
-<tr class="scraped-row border-b">
-<td class="p-3 font-mono text-xs"><a href="https://www.amazon.in/dp/B0BPLVZRNZ" target="_blank" class="text-blue-600">B0BPLVZRNZ</a></td>
-<td class="p-3 font-medium">Kapiva Shilajit/Shilajeet Gold</td>
-<td class="p-3 text-xs">Men's Health & Stamina</td>
-<td class="p-3 font-bold text-red-700">₹1199</td>
-<td class="p-3 text-gray-500 line-through">₹1499</td>
-<td class="p-3 text-yellow-600">★ 4</td>
-<td class="p-3">3,791</td>
-<td class="p-3 text-red-600">Out</td>
-<td class="p-3 text-xs">RK World Infoco</td>
-</tr></tbody>
-</table>
-</div>
-<div class="p-3 text-center text-xs text-gray-500 border-t">Swipe horizontally to see all columns</div>
-</section>
-
-<!-- Competitor Analysis -->
 <section class="bg-white rounded-lg shadow overflow-hidden">
 <div class="p-4 border-b bg-amber-600 text-white">
-<h2 class="font-bold text-lg"><i class="fas fa-balance-scale mr-2"></i>Competitor Comparison (8 Products Scraped)</h2>
+<h2 class="font-bold text-lg">Competitor Comparison (24 Products)</h2>
 </div>
 <div class="table-container">
 <table class="data-table w-full text-sm">
 <thead>
 <tr>
-<th colspan="5" class="header-kapiva p-3 text-center font-bold">KAPIVA PRODUCT</th>
+<th colspan="4" class="header-kapiva p-3 text-center">KAPIVA</th>
 <th class="divider"></th>
-<th colspan="4" class="header-competitor p-3 text-center font-bold">COMPETITOR</th>
+<th colspan="4" class="header-competitor p-3 text-center">COMPETITOR</th>
 </tr>
 <tr class="bg-gray-200">
 <th class="p-2 text-left">Product</th>
 <th class="p-2 text-left">Price</th>
-<th class="p-2 text-left">Rating</th>
-<th class="p-2 text-left">Reviews</th>
+<th class="p-2 text-left">★ Rating</th>
 <th class="p-2 text-left">Category</th>
 <th class="divider"></th>
 <th class="p-2 text-left">Brand</th>
 <th class="p-2 text-left">Price</th>
-<th class="p-2 text-left">Rating</th>
-<th class="p-2 text-left">Price Diff</th>
+<th class="p-2 text-left">★ Rating</th>
+<th class="p-2 text-left">Diff</th>
 </tr>
 </thead>
-<tbody>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Original Himalayan</td>
-<td class="p-2 font-bold">₹813</td>
-<td class="p-2 text-yellow-600">★ 4</td>
-<td class="p-2">10,065</td>
-<td class="p-2 text-xs text-gray-500">Men's Health & Stamina</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">UPAKARMA Pure Shilajit Resin 1</td>
-<td class="p-2 font-bold text-blue-600">₹400</td>
-<td class="p-2 text-yellow-600">★ 3.9</td>
-<td class="p-2 text-xs price-lower">-51%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Original Himalayan</td>
-<td class="p-2 font-bold">₹813</td>
-<td class="p-2 text-yellow-600">★ 4</td>
-<td class="p-2">10,065</td>
-<td class="p-2 text-xs text-gray-500">Men's Health & Stamina</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">Pure Original Himalayan Shilaj</td>
-<td class="p-2 font-bold text-blue-600">₹270</td>
-<td class="p-2 text-yellow-600">★ 3.9</td>
-<td class="p-2 text-xs price-lower">-67%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice - H</td>
-<td class="p-2 font-bold">₹479</td>
-<td class="p-2 text-yellow-600">★ 3.8</td>
-<td class="p-2">9,746</td>
-<td class="p-2 text-xs text-gray-500">Weight Management</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">SESA Ayurvedic Activslim Juice</td>
-<td class="p-2 font-bold text-blue-600">₹480</td>
-<td class="p-2 text-yellow-600">★ 4.0</td>
-<td class="p-2 text-xs price-higher">+0%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice - H</td>
-<td class="p-2 font-bold">₹479</td>
-<td class="p-2 text-yellow-600">★ 3.8</td>
-<td class="p-2">9,746</td>
-<td class="p-2 text-xs text-gray-500">Weight Management</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">KRISHNA'S HERBAL & AYURVEDA He</td>
-<td class="p-2 font-bold text-blue-600">₹469</td>
-<td class="p-2 text-yellow-600">★ 4.1</td>
-<td class="p-2 text-xs price-lower">-2%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Pure Aloe Vera Ski</td>
-<td class="p-2 font-bold">₹339</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2">6,176</td>
-<td class="p-2 text-xs text-gray-500">Skin & Hair Care</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">KAZIMA Pure Aloe Vera Gel for </td>
-<td class="p-2 font-bold text-blue-600">₹225</td>
-<td class="p-2 text-yellow-600">★ 4.1</td>
-<td class="p-2 text-xs price-lower">-34%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Pure Aloe Vera Ski</td>
-<td class="p-2 font-bold">₹339</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2">6,176</td>
-<td class="p-2 text-xs text-gray-500">Skin & Hair Care</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">MNT Pure ALOE VERA Gel Transpa</td>
-<td class="p-2 font-bold text-blue-600">₹191</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2 text-xs price-lower">-44%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Liver Care Juice (</td>
-<td class="p-2 font-bold">₹649</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2">1,559</td>
-<td class="p-2 text-xs text-gray-500">Chronic Care</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">Zandu Livital Liver Tablets – </td>
-<td class="p-2 font-bold text-blue-600">₹294</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2 text-xs price-lower">-55%</td>
-</tr>
-<tr class="competitor-row border-b">
-<td class="p-2 font-medium text-green-700">Kapiva Liver Care Juice (</td>
-<td class="p-2 font-bold">₹649</td>
-<td class="p-2 text-yellow-600">★ 4.2</td>
-<td class="p-2">1,559</td>
-<td class="p-2 text-xs text-gray-500">Chronic Care</td>
-<td class="divider"></td>
-<td class="p-2 text-gray-600">AnuJiva Liver Care Concentrate</td>
-<td class="p-2 font-bold text-blue-600">₹1539</td>
-<td class="p-2 text-yellow-600">★ -</td>
-<td class="p-2 text-xs price-higher">+137%</td>
-</tr>
-</tbody>
-</table>
-</div>
+<tbody><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Original Himala</td><td class="p-2 font-bold">₹813</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">UPAKARMA Pure Shilajit Re</td><td class="p-2 font-bold text-blue-600">₹400</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs price-lower">-51%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Original Himala</td><td class="p-2 font-bold">₹813</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">Pure Original Himalayan S</td><td class="p-2 font-bold text-blue-600">₹270</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs price-lower">-67%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice </td><td class="p-2 font-bold">₹479</td><td class="p-2 text-yellow-600">★ 3.8</td><td class="p-2 text-xs text-gray-500">Weight Manageme</td><td class="divider"></td><td class="p-2 text-gray-600">SESA Ayurvedic Activslim </td><td class="p-2 font-bold text-blue-600">₹480</td><td class="p-2 text-yellow-600">★ 4.0</td><td class="p-2 text-xs price-higher">+0%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice </td><td class="p-2 font-bold">₹479</td><td class="p-2 text-yellow-600">★ 3.8</td><td class="p-2 text-xs text-gray-500">Weight Manageme</td><td class="divider"></td><td class="p-2 text-gray-600">KRISHNA'S HERBAL & AYURVE</td><td class="p-2 font-bold text-blue-600">₹469</td><td class="p-2 text-yellow-600">★ 4.1</td><td class="p-2 text-xs price-lower">-2%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Pure Aloe Vera </td><td class="p-2 font-bold">₹339</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">KAZIMA Pure Aloe Vera Gel</td><td class="p-2 font-bold text-blue-600">₹225</td><td class="p-2 text-yellow-600">★ 4.1</td><td class="p-2 text-xs price-lower">-34%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Pure Aloe Vera </td><td class="p-2 font-bold">₹339</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">MNT Pure ALOE VERA Gel Tr</td><td class="p-2 font-bold text-blue-600">₹191</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-lower">-44%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Liver Care Juic</td><td class="p-2 font-bold">₹649</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Chronic Care</td><td class="divider"></td><td class="p-2 text-gray-600">Zandu Livital Liver Table</td><td class="p-2 font-bold text-blue-600">₹294</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-lower">-55%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Liver Care Juic</td><td class="p-2 font-bold">₹649</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Chronic Care</td><td class="divider"></td><td class="p-2 text-gray-600">AnuJiva Liver Care Concen</td><td class="p-2 font-bold text-blue-600">₹1539</td><td class="p-2 text-yellow-600">★ -</td><td class="p-2 text-xs price-higher">+137%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Shilajit/Shilaj</td><td class="p-2 font-bold">₹1285</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">Dabur Himalayan Shilajit/</td><td class="p-2 font-bold text-blue-600">₹1045</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-lower">-19%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Shilajit/Shilaj</td><td class="p-2 font-bold">₹1285</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">Multani Essentials Himala</td><td class="p-2 font-bold text-blue-600">₹526</td><td class="p-2 text-yellow-600">★ 4.1</td><td class="p-2 text-xs price-lower">-59%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Shilajit/Shilaj</td><td class="p-2 font-bold">₹1199</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">DABUR Shilajit Gold - 20 </td><td class="p-2 font-bold text-blue-600">₹324</td><td class="p-2 text-yellow-600">★ 3.7</td><td class="p-2 text-xs price-lower">-73%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Shilajit/Shilaj</td><td class="p-2 font-bold">₹1199</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Men's Health & </td><td class="divider"></td><td class="p-2 text-gray-600">Himalaya Shilajit/Shilaje</td><td class="p-2 font-bold text-blue-600">₹387</td><td class="p-2 text-yellow-600">★ 4.0</td><td class="p-2 text-xs price-lower">-68%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Plant Protein |</td><td class="p-2 font-bold">₹1779</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Nutrition & Pro</td><td class="divider"></td><td class="p-2 text-gray-600">Sparkfusion Plant Protein</td><td class="p-2 font-bold text-blue-600">₹1549</td><td class="p-2 text-yellow-600">★ 4.4</td><td class="p-2 text-xs price-lower">-13%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Plant Protein |</td><td class="p-2 font-bold">₹1779</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Nutrition & Pro</td><td class="divider"></td><td class="p-2 text-gray-600">NUTRABAY Gold 100% Pea Pr</td><td class="p-2 font-bold text-blue-600">₹1349</td><td class="p-2 text-yellow-600">★ 4.3</td><td class="p-2 text-xs price-lower">-24%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Hair Care Juice</td><td class="p-2 font-bold">₹1452</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">SESA Ayurvedic Hair Care </td><td class="p-2 font-bold text-blue-600">₹315</td><td class="p-2 text-yellow-600">★ 3.8</td><td class="p-2 text-xs price-lower">-78%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Hair Care Juice</td><td class="p-2 font-bold">₹1452</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">KRISHNA'S HERBAL & AYURVE</td><td class="p-2 font-bold text-blue-600">₹487</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-lower">-66%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Skin Foods Glow</td><td class="p-2 font-bold">₹888</td><td class="p-2 text-yellow-600">★ 3.7</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">Vedankaa Face Glow Capsul</td><td class="p-2 font-bold text-blue-600">₹449</td><td class="p-2 text-yellow-600">★ 3.6</td><td class="p-2 text-xs price-lower">-49%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Skin Foods Glow</td><td class="p-2 font-bold">₹888</td><td class="p-2 text-yellow-600">★ 3.7</td><td class="p-2 text-xs text-gray-500">Skin & Hair Car</td><td class="divider"></td><td class="p-2 text-gray-600">The Wellness Shop Collage</td><td class="p-2 font-bold text-blue-600">₹519</td><td class="p-2 text-yellow-600">★ 4.0</td><td class="p-2 text-xs price-lower">-42%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Certified A2 Gi</td><td class="p-2 font-bold">₹846</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Nutrition & Org</td><td class="divider"></td><td class="p-2 text-gray-600">GirOrganic A2 Ghee 500ml </td><td class="p-2 font-bold text-blue-600">₹1408</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-higher">+66%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Certified A2 Gi</td><td class="p-2 font-bold">₹846</td><td class="p-2 text-yellow-600">★ 4</td><td class="p-2 text-xs text-gray-500">Nutrition & Org</td><td class="divider"></td><td class="p-2 text-gray-600">Anveshan A2 Cow Ghee 500M</td><td class="p-2 font-bold text-blue-600">₹859</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-higher">+2%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice </td><td class="p-2 font-bold">₹978</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Weight Manageme</td><td class="divider"></td><td class="p-2 text-gray-600">Sri Sri Tattva Shape Up S</td><td class="p-2 font-bold text-blue-600">₹900</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs price-lower">-8%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Get Slim Juice </td><td class="p-2 font-bold">₹978</td><td class="p-2 text-yellow-600">★ 3.9</td><td class="p-2 text-xs text-gray-500">Weight Manageme</td><td class="divider"></td><td class="p-2 text-gray-600">KRISHNA'S HERBAL & AYURVE</td><td class="p-2 font-bold text-blue-600">₹469</td><td class="p-2 text-yellow-600">★ 4.1</td><td class="p-2 text-xs price-lower">-52%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Liver Care Juic</td><td class="p-2 font-bold">₹649</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Chronic Care</td><td class="divider"></td><td class="p-2 text-gray-600">Zandu Ashwagandha Gold Pl</td><td class="p-2 font-bold text-blue-600">₹351</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs price-lower">-46%</td></tr><tr class="competitor-row border-b"><td class="p-2 font-medium text-green-700">Kapiva Liver Care Juic</td><td class="p-2 font-bold">₹649</td><td class="p-2 text-yellow-600">★ 4.2</td><td class="p-2 text-xs text-gray-500">Chronic Care</td><td class="divider"></td><td class="p-2 text-gray-600">Best Choice Nutrition (As</td><td class="p-2 font-bold text-blue-600">₹118</td><td class="p-2 text-yellow-600">★ 5.0</td><td class="p-2 text-xs price-lower">-82%</td></tr></tbody></table></div>
 
 <div class="p-4 border-t bg-amber-50">
 <h3 class="font-bold text-amber-800 mb-2"><i class="fas fa-lightbulb mr-2"></i>Key Insights:</h3>
-<ul class="text-sm text-amber-900 space-y-1">
-<li><strong>Shilajit Resin:</strong> Competitors 49-67% cheaper (₹270-400 vs Kapiva ₹813)</li>
-<li><strong>Get Slim Juice:</strong> Competitive pricing similar to Kapiva (₹469-480 vs ₹479)</li>
-<li><strong>Aloe Vera:</strong> Competitors 34-44% cheaper (₹191-225 vs Kapiva ₹339)</li>
-<li><strong>Liver Care:</strong> Zandu offers cheaper tablets (₹294 vs Kapiva ₹649)</li>
-<l/ul>
+<ul class="text-sm text-amber-900">
+<li><strong>Shilajit:</strong> Dabur/Multani 40-67% cheaper. Kapiva premium positioned.</li>
+<li><strong>Plant Protein:</strong> Competitors cheaper (₹1349-1549 vs ₹1779), higher ratings (4.3-4.4★).</li>
+<li><strong>Hair Care:</strong> SESA ₹315 vs Kapiva ₹1452 (78% cheaper). Biggest price gap.</li>
+<li><strong>Ayurvedic:</strong> Zandu/Himalaya consistently 20-55% cheaper across categories.</li>
+</ul>
 </div>
 
-<div class="p-3 text-center text-xs text-gray-500 border-t"><strong>Swipe horizontally to compare side-by-side</strong></div>
+<div class="p-3 text-center text-xs text-gray-500 border-t"><strong>Swipe horizontally to compare</strong> • 24 competitors</div>
 </section>
 
 <footer class="mt-6 text-center text-xs text-gray-500">
-<p>Last Updated: June 2026 • Data: Apify + ScrapingBee</p>
+<p>June 2026 • Apify + ScrapingBee • 24 Competitors</p>
 </footer>
 
-</div>
-</body>
-</html>
+</div></body></html>
