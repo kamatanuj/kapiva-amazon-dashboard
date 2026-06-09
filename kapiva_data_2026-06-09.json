@@ -1,6 +1,6 @@
 {
   "date": "2026-06-09",
-  "generated_at": "2026-06-09T08:56:10.020595",
+  "generated_at": "2026-06-09T09:40:50.378272",
   "data_source": "Scrape.do",
   "products": [
     {
@@ -67,11 +67,11 @@
       "asin": "B07DRB3D5Z",
       "name": "Get Slim Juice 1L",
       "category": "Weight Management",
-      "title": "Kapiva Get Slim Juice - Healthy Weight Management Through 12 Ayurvedic Herbs Aid",
+      "title": "Get Slim Juice 1L",
       "price": "500",
-      "rating": 3.8,
-      "reviews": 9759,
-      "availability": "In Stock",
+      "rating": null,
+      "reviews": 0,
+      "availability": "Unknown",
       "url": "https://www.amazon.in/dp/B07DRB3D5Z",
       "status": "success"
     },
@@ -79,11 +79,11 @@
       "asin": "B09MMH943Y",
       "name": "Get Slim Juice 2L",
       "category": "Weight Management",
-      "title": "Get Slim Juice 2L",
+      "title": "Kapiva Get Slim Juice (2L) Bottle,Pack| Healthy Weight Management Through 12 Ayu",
       "price": "500",
-      "rating": null,
-      "reviews": 0,
-      "availability": "Unknown",
+      "rating": 3.9,
+      "reviews": 1115,
+      "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09MMH943Y",
       "status": "success"
     },
@@ -91,11 +91,11 @@
       "asin": "B07MDK6FQR",
       "name": "Plant Protein",
       "category": "Nutrition & Protein",
-      "title": "Kapiva Plant Protein | 25g Protein Per Scoop, Chocolate | With Vitamins &amp; Mi",
+      "title": "Plant Protein",
       "price": "500",
-      "rating": 3.9,
-      "reviews": 759,
-      "availability": "In Stock",
+      "rating": null,
+      "reviews": 0,
+      "availability": "Unknown",
       "url": "https://www.amazon.in/dp/B07MDK6FQR",
       "status": "success"
     },
@@ -159,7 +159,7 @@
     "total_products": 13,
     "successful_scrapes": 12,
     "avg_price": 500.0,
-    "avg_rating": 4.05,
-    "total_reviews": 46060
+    "avg_rating": 4.07,
+    "total_reviews": 36657
   }
 }
