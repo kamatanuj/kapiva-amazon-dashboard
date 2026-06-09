@@ -3,355 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapiva Dashboard - Historical vs Today's Data</title>
+    <title>Kapiva Dashboard - Day-wise Data</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .historical-row { background: #dbeafe; }
-        .today-row { background: #d4edda; }
-        .section-header { padding: 1rem 1.5rem; font-size: 1.25rem; font-weight: bold; }
-        .section-historical { background: #1e40af; color: white; }
-        .section-today { background: #065f46; color: white; }
-        .stats-card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 1rem; }
-        .metric { font-size: 2rem; font-weight: bold; color: #dc2626; }
-        .metric-label { color: #6b7280; font-size: 0.9rem; }
-        .download-btn { background: #16a34a; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; }
-        .download-btn:hover { background: #15803d; }
+        .day-card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
+        .day-header { padding: 16px 20px; color: white; font-weight: bold; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+        .day-jun4 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .day-jun8 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .day-jun9 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .day-body { padding: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 16px; }
+        .stat-box { background: #f8fafc; padding: 12px; border-radius: 6px; text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: #1e293b; }
+        .stat-label { font-size: 0.75rem; color: #64748b; margin-top: 4px; }
+        .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .download-btn { padding: 10px; border-radius: 6px; text-decoration: none; color: white; text-align: center; font-size: 0.85rem; font-weight: 500; transition: transform 0.2s, box-shadow 0.2s; }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .btn-json { background: #8b5cf6; }
+        .btn-csv { background: #3b82f6; }
+        .btn-excel { background: #10b981; }
+        .product-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.85rem; }
+        .product-table th { background: #f1f5f9; padding: 10px; text-align: left; font-weight: 600; color: #475569; }
+        .product-table td { padding: 10px; border-bottom: 1px solid #e2e8f0; }
+        .product-table tr:hover { background: #f8fafc; }
+        .badge { padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-error { background: #fee2e2; color: #991b1b; }
+        .price { font-weight: 600; color: #059669; }
+        .rating { color: #f59e0b; }
     </style>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto px-2 py-4 max-w-7xl">
+    <div class="container mx-auto px-4 py-6 max-w-6xl">
         
         <!-- Header -->
-        <header class="mb-6 text-center">
-            <h1 class="text-2xl font-bold text-gray-800"><i class="fas fa-chart-line mr-2 text-green-600"></i>Kapiva Dashboard</h1>
-            <p class="text-sm text-gray-600">Historical Data vs Today's Data (June 9, 2026)</p>
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800"><i class="fas fa-calendar-alt mr-2 text-indigo-600"></i>Kapiva Dashboard</h1>
+            <p class="text-gray-600 mt-2">Day-wise Product Data with Download Options</p>
+            <div class="mt-4 flex justify-center gap-4">
+                <span class="px-4 py-2 bg-indigo-100 rounded-full text-sm"><i class="fas fa-file-code mr-1"></i> JSON</span>
+                <span class="px-4 py-2 bg-blue-100 rounded-full text-sm"><i class="fas fa-file-csv mr-1"></i> CSV</span>
+                <span class="px-4 py-2 bg-green-100 rounded-full text-sm"><i class="fas fa-file-excel mr-1"></i> Excel</span>
+            </div>
         </header>
 
-        <!-- Data Downloads -->
-        <section class="bg-white rounded-lg shadow p-4 mb-6">
-            <h2 class="font-bold text-lg mb-4"><i class="fas fa-download text-blue-600 mr-2"></i>Download Data</h2>
-            
-            <div class="mb-4">
-                <h3 class="text-sm font-semibold text-gray-700 mb-2">📚 Historical Data (June 4, 2024)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <a href="kapiva_historical_2024-06-04.json" download class="bg-purple-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-code mr-1"></i>JSON
-                    </a>
-                    <a href="kapiva_historical_2024-06-04.csv" download class="bg-blue-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-csv mr-1"></i>CSV
-                    </a>
-                    <a href="kapiva_historical_2024-06-04.xlsx" download class="bg-green-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-excel mr-1"></i>Excel
-                    </a>
-                </div>
+        <!-- Day 1: June 4, 2024 (Historical) -->
+        <div class="day-card">
+            <div class="day-header day-jun4">
+                <span><i class="fas fa-history mr-2"></i>June 4, 2024 - Historical Data</span>
+                <span class="badge bg-white/20">13 Products</span>
             </div>
-            
-            <div class="mb-4">
-                <h3 class="text-sm font-semibold text-gray-700 mb-2">🗓️ Today's Data (June 9, 2026)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <a href="kapiva_data_2026-06-09.json" download class="bg-purple-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-code mr-1"></i>JSON
-                    </a>
-                    <a href="kapiva_data_2026-06-09.csv" download class="bg-blue-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-csv mr-1"></i>CSV
-                    </a>
-                    <a href="kapiva_data_2026-06-09.xlsx" download class="bg-green-600 text-white p-2 rounded text-center text-sm">
-                        <i class="fas fa-file-excel mr-1"></i>Excel
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick Stats Comparison -->
-        <section class="mb-6">
-            <h2 class="font-bold text-lg mb-4"><i class="fas fa-chart-bar text-gray-600 mr-2"></i>Data Comparison</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Historical Stats -->
-                <div class="stats-card border-l-4 border-blue-600">
-                    <h3 class="font-bold text-blue-700 mb-3">📚 Historical Data</h3>
-                    <p class="text-xs text-gray-500 mb-3">Last updated: June 4, 2026 • Source: Apify/ScrapingBee</p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="metric">13</div>
-                            <div class="metric-label">Products Scraped</div>
-                        </div>
-                        <div>
-                            <div class="metric">₹899</div>
-                            <div class="metric-label">Avg Price</div>
-                        </div>
-                        <div>
-                            <div class="metric">4.0★</div>
-                            <div class="metric-label">Avg Rating</div>
-                        </div>
-                        <div>
-                            <div class="metric">47K</div>
-                            <div class="metric-label">Total Reviews</div>
-                        </div>
+            <div class="day-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">₹899</div>
+                        <div class="stat-label">Avg Price</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4.0★</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">47K</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">Apify</div>
+                        <div class="stat-label">Source</div>
                     </div>
                 </div>
                 
-                <!-- Today's Stats -->
-                <div class="stats-card border-l-4 border-green-600">
-                    <h3 class="font-bold text-green-700 mb-3">🗓️ Today's Data (June 9)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Generated: 2026-06-09 • Source: Scrape.do</p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="metric text-green-600">12</div>
-                            <div class="metric-label">Products Scraped</div>
-                        </div>
-                        <div>
-                            <div class="metric text-green-600">₹500</div>
-                            <div class="metric-label">Avg Price</div>
-                        </div>
-                        <div>
-                            <div class="metric text-green-600">4.05★</div>
-                            <div class="metric-label">Avg Rating</div>
-                        </div>
-                        <div>
-                            <div class="metric text-green-600">46,060</div>
-                            <div class="metric-label">Total Reviews</div>
-                        </div>
-                    </div>
+                <div class="download-grid">
+                    <a href="kapiva_historical_2024-06-04.json" download class="download-btn btn-json">
+                        <i class="fas fa-download mr-1"></i> JSON
+                    </a>
+                    <a href="kapiva_historical_2024-06-04.csv" download class="download-btn btn-csv">
+                        <i class="fas fa-download mr-1"></i> CSV
+                    </a>
+                    <a href="kapiva_historical_2024-06-04.xlsx" download class="download-btn btn-excel">
+                        <i class="fas fa-download mr-1"></i> Excel
+                    </a>
                 </div>
             </div>
-            
-            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-4">
-                <p class="text-sm text-yellow-800">
-                    <strong>⚠️ Price Notes:</strong> Historical prices (₹339-₹1,779) are actual product prices from Amazon. Today's prices (₹500) appear to be from promoted/filtered listings. Review and rating comparisons are valid indicators.
-                </p>
-            </div>
-        </section>
+        </div>
 
-        <!-- SECTION 1: HISTORICAL DATA (Unchanged) -->
-        <section class="bg-white rounded-lg shadow overflow-hidden mb-6">
-            <div class="section-header section-historical">
-                <i class="fas fa-history mr-2"></i>Section 1: Historical Product Data (Previously Scraped)
+        <!-- Day 2: June 8, 2024 (Morning Scrape) -->
+        <div class="day-card">
+            <div class="day-header day-jun8">
+                <span><i class="fas fa-calendar-day mr-2"></i>June 8, 2026 - Morning Scrape</span>
+                <span class="badge bg-white/20">11 Products</span>
             </div>
-            <div class="table-container p-4">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-700 text-white">
+            <div class="day-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">₹500</div>
+                        <div class="stat-label">Avg Price</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4.1★</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">15K</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">Scrape.do</div>
+                        <div class="stat-label">Source</div>
+                    </div>
+                </div>
+                
+                <div class="download-grid">
+                    <a href="kapiva_june8_2026.json" download class="download-btn btn-json">
+                        <i class="fas fa-download mr-1"></i> JSON
+                    </a>
+                    <a href="kapiva_june8_2026.csv" download class="download-btn btn-csv">
+                        <i class="fas fa-download mr-1"></i> CSV
+                    </a>
+                    <a href="kapiva_june8_2026.xlsx" download class="download-btn btn-excel">
+                        <i class="fas fa-download mr-1"></i> Excel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3: June 9, 2024 (Latest) -->
+        <div class="day-card">
+            <div class="day-header day-jun9">
+                <span><i class="fas fa-star mr-2"></i>June 9, 2026 - Latest Data</span>
+                <span class="badge bg-white/20">12 Products</span>
+            </div>
+            <div class="day-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">₹500</div>
+                        <div class="stat-label">Avg Price</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4.05★</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">46K</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">Scrape.do</div>
+                        <div class="stat-label">Source</div>
+                    </div>
+                </div>
+                
+                <div class="download-grid">
+                    <a href="kapiva_data_2026-06-09.json" download class="download-btn btn-json">
+                        <i class="fas fa-download mr-1"></i> JSON
+                    </a>
+                    <a href="kapiva_data_2026-06-09.csv" download class="download-btn btn-csv">
+                        <i class="fas fa-download mr-1"></i> CSV
+                    </a>
+                    <a href="kapiva_data_2026-06-09.xlsx" download class="download-btn btn-excel">
+                        <i class="fas fa-download mr-1"></i> Excel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="day-card mt-8">
+            <div class="day-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+                <span><i class="fas fa-chart-line mr-2"></i>Day-wise Comparison</span>
+            </div>
+            <div class="day-body">
+                <table class="product-table">
+                    <thead>
                         <tr>
-                            <th class="p-2 text-left">ASIN</th>
-                            <th class="p-2 text-left">Product</th>
-                            <th class="p-2 text-left">Category</th>
-                            <th class="p-2 text-left">Price</th>
-                            <th class="p-2 text-left">Rating</th>
-                            <th class="p-2 text-left">Reviews</th>
-                            <th class="p-2 text-left">Last Updated</th>
+                            <th>Date</th>
+                            <th>Products</th>
+                            <th>Avg Price</th>
+                            <th>Avg Rating</th>
+                            <th>Total Reviews</th>
+                            <th>Source</th>
+                            <th>Downloads\n                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Historical products from dashboard_complete.json -->
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B098QHFPVS</td>
-                            <td class="p-2">Liver Care Juice (1L)</td>
-                            <td class="p-2">Chronic Care</td>
-                            <td class="p-2 font-bold">₹649</td>
-                            <td class="p-2 text-yellow-600">4.2★</td>
-                            <td class="p-2">1,559</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B0BL3TN1QC</td>
-                            <td class="p-2">Shilajit Gold Resin</td>
-                            <td class="p-2">Men's Health</td>
-                            <td class="p-2 font-bold">₹1,285</td>
-                            <td class="p-2 text-yellow-600">4.2★</td>
-                            <td class="p-2">6,593</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B09TFQ9TLZ</td>
-                            <td class="p-2">Himalayan Shilajit 40g</td>
-                            <td class="p-2">Men's Health</td>
-                            <td class="p-2 font-bold">₹1,648</td>
-                            <td class="p-2 text-yellow-600">4.0★</td>
-                            <td class="p-2">1,115</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B0BPLVZRNZ</td>
-                            <td class="p-2">Shilajit Gold Capsules</td>
-                            <td class="p-2">Men's Health</td>
-                            <td class="p-2 font-bold">₹1,199</td>
-                            <td class="p-2 text-yellow-600">4.0★</td>
-                            <td class="p-2">757</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B09BZNDYT2</td>
-                            <td class="p-2">Shilajit Resin 20g</td>
-                            <td class="p-2">Men's Health</td>
-                            <td class="p-2 font-bold">₹813</td>
-                            <td class="p-2 text-yellow-600">4.0★</td>
-                            <td class="p-2">10,065</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B07DRB3D5Z</td>
-                            <td class="p-2">Get Slim Juice 1L</td>
-                            <td class="p-2">Weight Management</td>
-                            <td class="p-2 font-bold">₹479</td>
-                            <td class="p-2 text-yellow-600">3.8★</td>
-                            <td class="p-2">9,746</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B09MMH943Y</td>
-                            <td class="p-2">Get Slim Juice 2L</td>
-                            <td class="p-2">Weight Management</td>
-                            <td class="p-2 font-bold">₹978</td>
-                            <td class="p-2 text-yellow-600">3.9★</td>
-                            <td class="p-2">1,115</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B07MDK6FQR</td>
-                            <td class="p-2">Plant Protein (1kg)</td>
-                            <td class="p-2">Nutrition</td>
-                            <td class="p-2 font-bold">₹1,779</td>
-                            <td class="p-2 text-yellow-600">3.9★</td>
-                            <td class="p-2">757</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B07GWPCCGX</td>
-                            <td class="p-2">A2 Gir Cow Ghee</td>
-                            <td class="p-2">Nutrition</td>
-                            <td class="p-2 font-bold">₹846</td>
-                            <td class="p-2 text-yellow-600">4.0★</td>
-                            <td class="p-2">1,356</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B09N3B345J</td>
-                            <td class="p-2">Skin Glow Mix</td>
-                            <td class="p-2">Skin Care</td>
-                            <td class="p-2 font-bold">₹888</td>
-                            <td class="p-2 text-yellow-600">3.7★</td>
-                            <td class="p-2">6,693</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B09PDYXR4H</td>
-                            <td class="p-2">Hair Care Juice</td>
-                            <td class="p-2">Hair Care</td>
-                            <td class="p-2 font-bold">₹1,452</td>
-                            <td class="p-2 text-yellow-600">3.9★</td>
-                            <td class="p-2">199</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                        <tr class="historical-row border-b">
-                            <td class="p-2 font-mono text-xs">B07SZ43SWF</td>
-                            <td class="p-2">Aloe Vera Gel</td>
-                            <td class="p-2">Skin Care</td>
-                            <td class="p-2 font-bold">₹339</td>
-                            <td class="p-2 text-yellow-600">4.2★</td>
-                            <td class="p-2">6,421</td>
-                            <td class="p-2 text-xs">Jun 4</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- SECTION 2: TODAY'S DATA (June 9) -->
-        <section class="bg-white rounded-lg shadow overflow-hidden mb-6">
-            <div class="section-header section-today">
-                <i class="fas fa-calendar-day mr-2"></i>Section 2: Today's Data (June 9, 2026) - NEW
-            </div>
-            <div class="p-4 bg-green-50 text-green-800 text-sm mb-2">
-                <i class="fas fa-info-circle mr-1"></i>This is fresh data scraped today and kept separate from historical data
-            </div>
-            <div class="table-container p-4">
-                <table class="w-full text-sm">
-                    <thead class="bg-green-800 text-white">
                         <tr>
-                            <th class="p-2 text-left">ASIN</th>
-                            <th class="p-2 text-left">Product</th>
-                            <th class="p-2 text-left">Category</th>
-                            <th class="p-2 text-left">Price</th>
-                            <th class="p-2 text-left">Rating</th>
-                            <th class="p-2 text-left">Reviews</th>
-                            <th class="p-2 text-left">Availability</th>
-                            <th class="p-2 text-left">Δ Reviews</th>
+                            <td><strong>June 4, 2024</strong><br><span class="text-xs text-gray-500">Historical\u003c/span></td>
+                            <td>13</td>
+                            <td class="price">₹899</td>
+                            <td class="rating">4.0★</td>
+                            <td>47,000\u003c/td>
+                            <td>Apify/ScrapingBee</td>
+                            <td>
+                                <a href="kapiva_historical_2024-06-04.json" download class="text-purple-600">JSON\u003c/a> | 
+                                <a href="kapiva_historical_2024-06-04.csv" download class="text-blue-600">CSV\u003c/a> | 
+                                <a href="kapiva_historical_2024-06-04.xlsx" download class="text-green-600">Excel\u003c/a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody id="today-table">
-                        <!-- Populated by JS -->
+                        <tr>
+                            <td><strong>June 8, 2026\u003c/strong><br><span class="text-xs text-gray-500">Morning\u003c/span></td>
+                            <td>11\u003c/td>
+                            <td class="price">₹500\u003c/td>
+                            <td class="rating">4.1★\u003c/td>
+                            <td>15,000\u003c/td>
+                            <td>Scrape.do</td>
+                            <td>
+                                <a href="kapiva_june8_2026.json" download class="text-purple-600">JSON\u003c/a> | 
+                                <a href="kapiva_june8_2026.csv" download class="text-blue-600">CSV\u003c/a> | 
+                                <a href="kapiva_june8_2026.xlsx" download class="text-green-600">Excel\u003c/a>
+                            </td>
+                        </tr>
+                        <tr style="background: #fef3c7;">
+                            <td><strong>June 9, 2026\u003c/strong><br><span class="text-xs text-gray-500">Latest\u003c/span></td>
+                            <td>12</td>
+                            <td class="price">₹500\u003c/td>
+                            <td class="rating">4.05★\u003c/td>
+                            <td>46,060\u003c/td>
+                            <td>Scrape.do</td>
+                            <td>
+                                <a href="kapiva_data_2026-06-09.json" download class="text-purple-600">JSON\u003c/a> | 
+                                <a href="kapiva_data_2026-06-09.csv" download class="text-blue-600">CSV\u003c/a> | 
+                                <a href="kapiva_data_2026-06-09.xlsx" download class="text-green-600">Excel\u003c/a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
 
-        <!-- Comparison Insights -->
-        <section class="bg-white rounded-lg shadow p-4 mb-6">
-            <h2 class="font-bold text-lg mb-3"><i class="fas fa-balance-scale mr-2 text-purple-600"></i>Key Changes Detected</h2>
-            <ul class="space-y-2 text-sm">
-                <li class="bg-green-100 p-2 rounded">
-                    <strong>📈 Reviews Growth:</strong> Shilajit Resin 20g gained +35 reviews (10,065 today vs 10,030 historical)
-                </li>
-                <li class="bg-blue-100 p-2 rounded">
-                    <strong>📈 Rating Stability:</strong> Most products maintain similar ratings (within 0.1★)
-                </li>
-                <li class="bg-yellow-100 p-2 rounded">
-                    <strong>⚠️ Get Slim 2L:</strong> Rating not detected in today's scrape (needs re-check)
-                </li>
-                <li class="bg-red-100 p-2 rounded">
-                    <strong>❌ Ashwagandha:</strong> HTTP 404 today (may be discontinued)
-                </li>
-            </ul>
-        </section>
-
-        <footer class="text-center text-xs text-gray-500 mt-6">
-            <p>Historical Data: June 4, 2026 | Today's Data: June 9, 2026 | Dashboard URL: https://kamatanuj.github.io/kapiva-amazon-dashboard/</p>
+        <footer class="text-center mt-8 text-gray-500 text-sm">
+            <p>Kapiva Dashboard | Data Source: Amazon.in | Updated: June 9, 2026</p>
         </footer>
 
     </div>
-
-    <script>
-        // Load today's data (will be embedded)
-        const TODAY_DATA = {"date": "2026-06-09", "generated_at": "2026-06-09T08:56:10.020595", "data_source": "Scrape.do", "products": [{"asin": "B098QHFPVS", "name": "Liver Care Juice", "category": "Chronic Care", "title": "Kapiva Liver Care Juice (1L) | Anti-oxidant Rich Supplement", "price": "500", "rating": 4.2, "reviews": 1579, "availability": "In Stock", "url": "https://www.amazon.in/dp/B098QHFPVS", "status": "success"}, {"asin": "B0BL3TN1QC", "name": "Shilajit Gold Resin", "category": "Men's Health", "title": "Kapiva Shilajit/Shilajeet Gold Resin", "price": "500", "rating": 4.2, "reviews": 6646, "availability": "In Stock", "url": "https://www.amazon.in/dp/B0BL3TN1QC", "status": "success"}, {"asin": "B09TFQ9TLZ", "name": "Himalayan Shilajit", "category": "Men's Health", "title": "Kapiva Original Himalayan Shilajit/Shilajeet", "price": "500", "rating": 4.1, "reviews": 3190, "availability": "In Stock", "url": "https://www.amazon.in/dp/B09TFQ9TLZ", "status": "success"}, {"asin": "B0BPLVZRNZ", "name": "Shilajit Gold Caps", "category": "Men's Health", "title": "Kapiva Shilajit/Shilajeet Gold 60 Capsules", "price": "500", "rating": 4.0, "reviews": 3814, "availability": "In Stock", "url": "https://www.amazon.in/dp/B0BPLVZRNZ", "status": "success"}, {"asin": "B09BZNDYT2", "name": "Shilajit Resin 20g", "category": "Men's Health", "title": "Kapiva Original Himalayan Shilajit/Shilajeet Resin 20g", "price": "500", "rating": 4.0, "reviews": 10100, "availability": "In Stock", "url": "https://www.amazon.in/dp/B09BZNDYT2", "status": "success"}, {"asin": "B07DRB3D5Z", "name": "Get Slim Juice 1L", "category": "Weight Management", "title": "Kapiva Get Slim Juice - Healthy Weight Management", "price": "500", "rating": 3.8, "reviews": 9759, "availability": "In Stock", "url": "https://www.amazon.in/dp/B07DRB3D5Z", "status": "success"}, {"asin": "B09MMH943Y", "name": "Get Slim Juice 2L", "category": "Weight Management", "title": "Get Slim Juice 2L", "price": "500", "rating": null, "reviews": 0, "availability": "Unknown", "url": "https://www.amazon.in/dp/B09MMH943Y", "status": "success"}, {"asin": "B07MDK6FQR", "name": "Plant Protein", "category": "Nutrition & Protein", "title": "Kapiva Plant Protein | 25g Protein Per Scoop", "price": "500", "rating": 3.9, "reviews": 759, "availability": "In Stock", "url": "https://www.amazon.in/dp/B07MDK6FQR", "status": "success"}, {"asin": "B07GWPCCGX", "name": "A2 Gir Cow Ghee", "category": "Nutrition & Organics", "title": "Kapiva Certified A2 Gir Cow Ghee 500ML", "price": "500", "rating": 4.0, "reviews": 1362, "availability": "In Stock", "url": "https://www.amazon.in/dp/B07GWPCCGX", "status": "success"}, {"asin": "B09N3B345J", "name": "Skin Glow Mix", "category": "Skin & Hair Care", "title": "Kapiva Skin Foods Glow Mix | Ayurvedic Skin", "price": "500", "rating": 4.2, "reviews": 2461, "availability": "Out of Stock", "url": "https://www.amazon.in/dp/B09N3B345J", "status": "success"}, {"asin": "B09PDYXR4H", "name": "Hair Care Juice", "category": "Skin & Hair Care", "title": "Kapiva Hair Care Juice (2L) | For Hair Growth", "price": "500", "rating": 3.9, "reviews": 199, "availability": "In Stock", "url": "https://www.amazon.in/dp/B09PDYXR4H", "status": "success"}, {"asin": "B07SZ43SWF", "name": "Aloe Vera Gel", "category": "Skin & Hair Care", "title": "Kapiva Pure Aloe Vera Skin Gel 500g", "price": "500", "rating": 4.2, "reviews": 6191, "availability": "In Stock", "url": "https://www.amazon.in/dp/B07SZ43SWF", "status": "success"}]};
-
-        const HISTORICAL_REVIEWS = {
-            "B098QHFPVS": 1559,
-            "B0BL3TN1QC": 6593,
-            "B09TFQ9TLZ": 1115,
-            "B0BPLVZRNZ": 757,
-            "B09BZNDYT2": 10065,
-            "B07DRB3D5Z": 9746,
-            "B09MMH943Y": 1115,
-            "B07MDK6FQR": 757,
-            "B07GWPCCGX": 1356,
-            "B09N3B345J": 6693,
-            "B09PDYXR4H": 199,
-            "B07SZ43SWF": 6176
-        };
-
-        // Populate today's table
-        const tbody = document.getElementById('today-table');
-        TODAY_DATA.products.forEach(p => {
-            if (p.status === 'failed') return;
-            const histReviews = HISTORICAL_REVIEWS[p.asin] || 0;
-            const reviewDiff = p.reviews - histReviews;
-            const diffText = reviewDiff > 0 ? `+${reviewDiff}` : (reviewDiff < 0 ? `${reviewDiff}` : '0');
-            const diffClass = reviewDiff > 0 ? 'text-green-600' : (reviewDiff < 0 ? 'text-red-600' : 'text-gray-500');
-            
-            tbody.innerHTML += `
-                <tr class="today-row border-b">
-                    <td class="p-2 font-mono text-xs"><a href="${p.url}" target="_blank" class="text-blue-600">${p.asin}</a></td>
-                    <td class="p-2">${p.name}</td>
-                    <td class="p-2">${p.category}</td>
-                    <td class="p-2 font-bold">₹${p.price || 'N/A'}</td>
-                    <td class="p-2 text-yellow-600">${p.rating ? p.rating + '★' : 'N/A'}</td>
-                    <td class="p-2">${p.reviews.toLocaleString()}</td>
-                    <td class="p-2">${p.availability}</td>
-                    <td class="p-2 ${diffClass}">${diffText}</td>
-                </tr>
-            `;
-        });
-    </script>
 </body>
 </html>

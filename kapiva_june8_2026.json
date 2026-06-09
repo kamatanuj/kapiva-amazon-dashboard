@@ -1,0 +1,131 @@
+{
+  "timestamp": "2026-06-08T06:18:58.733236",
+  "service": "scrape.do",
+  "total": 13,
+  "successful": 11,
+  "failed": 2,
+  "products": [
+    {
+      "asin": "B098QHFPVS",
+      "status": "success",
+      "title": "Kapiva Liver Care Juice Ayurvedic Supplement",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.0,
+      "reviews": 1574,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B0BL3TN1QC",
+      "status": "success",
+      "title": "Kapiva Shilajit/Shilajeet Gold Resin",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.0,
+      "reviews": 6637,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B09TFQ9TLZ",
+      "status": "success",
+      "title": "Kapiva Original Himalayan Shilajit Resin",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.1,
+      "reviews": 3188,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B0BPLVZZNZ",
+      "status": "error",
+      "error": "HTTP 404",
+      "text": "<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n        <title>Page Not Found</title>\n\n        <style type=\"text/css\">\n            a:link { font-family: v"
+    },
+    {
+      "asin": "B09BZNDYT2",
+      "status": "success",
+      "title": "Kapiva Original Himalayan Shilajit Resin",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.1,
+      "reviews": 10097,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B07DRB3D5Z",
+      "status": "success",
+      "title": "Kapiva Get Slim Juice Healthy Weight Management",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.5,
+      "reviews": 9757,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B09MMH943Y",
+      "status": "success",
+      "title": "Kapiva Get Slim Juice",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.5,
+      "reviews": 1115,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B07MDK6FQR",
+      "status": "success",
+      "title": "Kapiva Plant Protein | 25g Protein Per Scoop, Chocolate | With Vitamins &amp; Minerals | Pea protein Isolate - 1Kg : Ama",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.3,
+      "reviews": 759,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B07GWPCCGX",
+      "status": "success",
+      "title": "Kapiva Certified A2 Gir Cow Ghee 500ML | Traditional Vedic Bilona Method | Grassfed, Pure &amp; Healthy | Curd-Churned |",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.2,
+      "reviews": 1361,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B09N3B345J",
+      "status": "success",
+      "title": "Kapiva Skin Foods Glow Mix Ayurvedic Collagen Powder",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.1,
+      "reviews": 2461,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B09PDYXR4H",
+      "status": "success",
+      "title": "Kapiva Hair Care Juice for Hair Growth &amp; Hair Fall Control",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 3.9,
+      "reviews": 199,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B07SZ43SWF",
+      "status": "success",
+      "title": "Kapiva Pure Aloe Vera Skin Gel 500g For Face &amp; Hair | Hydrating, Moisturizing, Soothing Skin | Multipurpose Gel : Am",
+      "price": "\u20b9500",
+      "mrp": null,
+      "rating": 4.4,
+      "reviews": 6191,
+      "availability": "In Stock"
+    },
+    {
+      "asin": "B0C7YRT7JP",
+      "status": "error",
+      "error": "HTTP 404",
+      "text": "<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n        <title>Page Not Found</title>\n\n        <style type=\"text/css\">\n            a:link { font-family: v"
+    }
+  ]
+}
