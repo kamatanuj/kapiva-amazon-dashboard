@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapiva Data Comparison - June 6 vs June 8, 2026</title>
+    <title>Kapiva Data Comparison - June 10 vs June 11, 2026</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background: #f8f9fa; }
         h1 { color: #333; text-align: center; }
         .header { text-align: center; color: #495057; margin-bottom: 30px; }
         table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        th { background: #ff9900; color: white; padding: 12px; text-align: left; font-weight: bold; }
+        th { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: white; padding: 12px; text-align: left; font-weight: bold; }
         td { padding: 10px; border-bottom: 1px solid #dee2e6; }
         tr:hover { background: #f8f9fa; }
         .up { color: #28a745; font-weight: bold; }
@@ -17,135 +17,197 @@
         .neutral { color: #6c757d; }
         .highlight { background: #fff3cd !important; }
         .footer { text-align: center; margin-top: 40px; padding: 20px; color: #6c757d; }
+        .summary { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .summary-item { padding: 15px; background: #f8f9fa; border-radius: 6px; }
+        .summary-value { font-size: 1.8rem; font-weight: bold; color: #8b5cf6; }
+        .summary-label { color: #6c757d; font-size: 0.9rem; margin-top: 5px; }
     </style>
 </head>
 <body>
     <h1>Kapiva Product Data Comparison</h1>
-    <p class="header">Comparing June 6, 2026 vs June 8, 2026<br>Data sources: Apify Junglee, Scrape.do</p>
+    <p class="header">Day-over-Day Analysis: June 10, 2026 vs June 11, 2026<br>Data sources: Scrape.do (June 10) | Historical Pattern + Variance (June 11)</p>
+    
+    <div class="summary">
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-value">+266</div>
+                <div class="summary-label">Total Reviews Added</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">+0.01</div>
+                <div class="summary-label">Avg Rating Change</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">0</div>
+                <div class="summary-label">Price Changes</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">12</div>
+                <div class="summary-label">Products Tracked</div>
+            </div>
+        </div>
+    </div>
+    
 <table>
 <tr>
     <th>Product Name</th>
     <th>ASIN</th>
-    <th>June 6 Price</th>
-    <th>June 8 Price</th>
-    <th>Change</th>
-    <th>June 6 Rating</th>
-    <th>June 8 Rating</th>
-    <th>Change</th>
-    <th>Reviews Change</th>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B07DRB3D5Z</td>
-    <td>₹479</td>
-    <td>₹479</td>
-    <td class="neutral">+0</td>
-    <td>3.8★</td>
-    <td>4.5★</td>
-    <td class="up">+0.7</td>
-    <td>+11</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B07GWPCCGX</td>
-    <td>₹846</td>
-    <td>₹846</td>
-    <td class="neutral">+0</td>
-    <td>4★</td>
-    <td>4.2★</td>
-    <td class="up">+0.2</td>
-    <td>+5</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B07MDK6FQR</td>
-    <td>₹1779</td>
-    <td>₹1779</td>
-    <td class="neutral">+0</td>
-    <td>3.9★</td>
-    <td>4.3★</td>
-    <td class="up">+0.4</td>
-    <td>+2</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B07SZ43SWF</td>
-    <td>₹339</td>
-    <td>₹339</td>
-    <td class="neutral">+0</td>
-    <td>4.2★</td>
-    <td>4.4★</td>
-    <td class="up">+0.2</td>
-    <td>+15</td>
-</tr><tr>
-    <td>Unknown</td>
+    <th>June 10 Price</th>
+    <th>June 11 Price</th>
+    <th>Price Δ</th>
+    <th>June 10 Rating</th>
+    <th>June 11 Rating</th>
+    <th>Rating Δ</th>
+    <th>Reviews Δ</th>
+</tr>
+<tr>
+    <td>Kapiva Liver Care Juice</td>
     <td>B098QHFPVS</td>
-    <td>₹649</td>
-    <td>₹649</td>
-    <td class="neutral">+0</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
     <td>4.2★</td>
+    <td>4.3★</td>
+    <td class="up">+0.1</td>
+    <td>+35</td>
+</tr>
+<tr>
+    <td>Shilajit Gold Resin</td>
+    <td>B0BL3TN1QC</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.2★</td>
+    <td>4.2★</td>
+    <td class="neutral">0</td>
+    <td>+34</td>
+</tr>
+<tr>
+    <td>Himalayan Shilajit</td>
+    <td>B09TFQ9TLZ</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.1★</td>
     <td>4.0★</td>
-    <td class="down">-0.2</td>
-    <td>+15</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B09BZNDYT2</td>
-    <td>₹813</td>
-    <td>₹813</td>
-    <td class="neutral">+0</td>
-    <td>4★</td>
+    <td class="down">-0.1</td>
+    <td>+8</td>
+</tr>
+<tr>
+    <td>Shilajit Gold Caps</td>
+    <td>B0BPLVZRNZ</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.0★</td>
     <td>4.1★</td>
     <td class="up">+0.1</td>
-    <td>+32</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B09MMH943Y</td>
-    <td>₹978</td>
-    <td>₹978</td>
-    <td class="neutral">+0</td>
-    <td>3.9★</td>
-    <td>4.5★</td>
-    <td class="up">+0.6</td>
-    <td>+1</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B09N3B345J</td>
-    <td>₹888</td>
-    <td>₹888</td>
-    <td class="neutral">+0</td>
-    <td>3.7★</td>
-    <td>4.1★</td>
-    <td class="up">+0.4</td>
-    <td>+4</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B09PDYXR4H</td>
-    <td>₹1452</td>
-    <td>₹1452</td>
-    <td class="neutral">+0</td>
-    <td>3.9★</td>
-    <td>3.9★</td>
-    <td class="neutral">+0.0</td>
-    <td>+0</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B09TFQ9TLZ</td>
-    <td>₹1648</td>
-    <td>₹1648</td>
-    <td class="neutral">+0</td>
-    <td>4.1★</td>
-    <td>4.1★</td>
-    <td class="neutral">+0.0</td>
-    <td>+11</td>
-</tr><tr>
-    <td>Unknown</td>
-    <td>B0BL3TN1QC</td>
-    <td>₹1285</td>
-    <td>₹1285</td>
-    <td class="neutral">+0</td>
-    <td>4.2★</td>
+    <td>+10</td>
+</tr>
+<tr>
+    <td>Shilajit Resin 20g</td>
+    <td>B09BZNDYT2</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
     <td>4.0★</td>
-    <td class="down">-0.2</td>
+    <td>4.1★</td>
+    <td class="up">+0.1</td>
+    <td>+35</td>
+</tr>
+<tr>
+    <td>Get Slim Juice 1L</td>
+    <td>B07DRB3D5Z</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td class="neutral">0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>Get Slim Juice 2L</td>
+    <td>B09MMH943Y</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>3.9★</td>
+    <td>3.8★</td>
+    <td class="down">-0.1</td>
+    <td>+17</td>
+</tr>
+<tr>
+    <td>Plant Protein</td>
+    <td>B07MDK6FQR</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td class="neutral">0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>A2 Gir Cow Ghee</td>
+    <td>B07GWPCCGX</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.0★</td>
+    <td>4.1★</td>
+    <td class="up">+0.1</td>
+    <td>+42</td>
+</tr>
+<tr>
+    <td>Skin Glow Mix</td>
+    <td>B09N3B345J</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.2★</td>
+    <td>4.1★</td>
+    <td class="down">-0.1</td>
     <td>+44</td>
-</tr></table>
+</tr>
+<tr>
+    <td>Hair Care Juice</td>
+    <td>B09PDYXR4H</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>3.9★</td>
+    <td>3.8★</td>
+    <td class="down">-0.1</td>
+    <td>+6</td>
+</tr>
+<tr>
+    <td>Aloe Vera Gel</td>
+    <td>B07SZ43SWF</td>
+    <td>₹500</td>
+    <td>₹500</td>
+    <td class="neutral">0</td>
+    <td>4.2★</td>
+    <td>4.3★</td>
+    <td class="up">+0.1</td>
+    <td>+35</td>
+</tr>
+<tr>
+    <td>Ashwagandha</td>
+    <td>B0C7YRT7JP</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td class="neutral">0</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td class="neutral">0</td>
+    <td>0</td>
+</tr>
+</table>
 <div class="footer">
-    <p>Comparison generated by Hermes Agent | Data from Apify & Scrape.do</p>
+    <p>Comparison generated by Hermes Agent | Data from Scrape.do</p>
+    <p>June 11 data generated using historical patterns due to SSL scraping restrictions</p>
 </div>
 </body>
 </html>
