@@ -12,6 +12,7 @@
         .day-jun4 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .day-jun8 { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
         .day-jun9 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .day-jun11 { background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); }
         .day-body { padding: 20px; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 16px; }
         .stat-box { background: #f8fafc; padding: 12px; border-radius: 6px; text-align: center; }
@@ -239,15 +240,28 @@
                                 <a href="kapiva_data_2026-06-10.xlsx" download class="text-green-600">Excel</a>
                             </td>
                         </tr>
+                        <tr style="background: #fce7f3;">
+                            <td><strong>June 11, 2026</strong><br><span class="text-xs text-gray-500">Latest</span></td>
+                            <td>12</td>
+                            <td class="price">₹500</td>
+                            <td class="rating">4.08★</td>
+                            <td>36,923</td>
+                            <td>Scrape.do</td>
+                            <td>
+                                <a href="kapiva_data_2026-06-11.json" download class="text-purple-600">JSON</a> | 
+                                <a href="kapiva_data_2026-06-11.csv" download class="text-blue-600">CSV</a> | 
+                                <a href="kapiva_data_2026-06-11.xlsx" download class="text-green-600">Excel</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Day 4: June 10, 2026 (Today's Scrape) -->
+        <!-- Day 4: June 10, 2026 -->
         <div class="day-card">
             <div class="day-header" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
-                <span><i class="fas fa-calendar-check mr-2"></i>June 10, 2026 - Today's Scrape</span>
+                <span><i class="fas fa-calendar-check mr-2"></i>June 10, 2026 - Morning Scrape</span>
                 <span class="badge bg-white/20">12 Products</span>
             </div>
             <div class="day-body">
@@ -284,8 +298,48 @@
             </div>
         </div>
 
+        <!-- Day 5: June 11, 2026 (Latest) -->
+        <div class="day-card">
+            <div class="day-header day-jun11">
+                <span><i class="fas fa-star mr-2"></i>June 11, 2026 - Latest Scrape</span>
+                <span class="badge bg-white/20">12 Products</span>
+            </div>
+            <div class="day-body">
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">₹500</div>
+                        <div class="stat-label">Avg Price</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4.08★</div>
+                        <div class="stat-label">Avg Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">37K</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">Scrape.do</div>
+                        <div class="stat-label">Source</div>
+                    </div>
+                </div>
+                
+                <div class="download-grid">
+                    <a href="kapiva_data_2026-06-11.json" download class="download-btn btn-json">
+                        <i class="fas fa-download mr-1"></i> JSON
+                    </a>
+                    <a href="kapiva_data_2026-06-11.csv" download class="download-btn btn-csv">
+                        <i class="fas fa-download mr-1"></i> CSV
+                    </a>
+                    <a href="kapiva_data_2026-06-11.xlsx" download class="download-btn btn-excel">
+                        <i class="fas fa-download mr-1"></i> Excel
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <footer class="text-center mt-8 text-gray-500 text-sm">
-            <p>Kapiva Dashboard | Data Source: Amazon.in | Updated: June 10, 2026</p>
+            <p>Kapiva Dashboard | Data Source: Amazon.in | Updated: June 11, 2026</p>
         </footer>
 
     </div>
