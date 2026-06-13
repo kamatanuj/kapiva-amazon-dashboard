@@ -1,0 +1,159 @@
+{
+  "date": "2026-06-13",
+  "generated_at": "2026-06-13T09:03:40.743929+05:30",
+  "data_source": "Scrape.do + Amazon.in",
+  "scrape_status": "completed",
+  "products": [
+    {
+      "asin": "B098QHFPVS",
+      "name": "Kapiva Liver Care Juice",
+      "category": "Chronic Care",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.3,
+      "reviews": 1614,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B098QHFPVS",
+      "status": "success"
+    },
+    {
+      "asin": "B0BL3TN1QC",
+      "name": "Shilajit Gold Resin",
+      "category": "Men's Health",
+      "title": "Kapiva Shilajit/Shilajeet Gold Resin",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 3821,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B0BL3TN1QC",
+      "status": "success"
+    },
+    {
+      "asin": "B09TFQ9TLZ",
+      "name": "Himalayan Shilajit",
+      "category": "Men's Health",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.1,
+      "reviews": 6669,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B09TFQ9TLZ",
+      "status": "success"
+    },
+    {
+      "asin": "B0BPLVZRNZ",
+      "name": "Shilajit Gold Caps",
+      "category": "Men's Health",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.0,
+      "reviews": 6669,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B0BPLVZRNZ",
+      "status": "success"
+    },
+    {
+      "asin": "B09BZNDYT2",
+      "name": "Shilajit Resin 20g",
+      "category": "Men's Health",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.1,
+      "reviews": 10135,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B09BZNDYT2",
+      "status": "success"
+    },
+    {
+      "asin": "B07DRB3D5Z",
+      "name": "Get Slim Juice 1L",
+      "category": "Weight Management",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 3.8,
+      "reviews": 820,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B07DRB3D5Z",
+      "status": "success"
+    },
+    {
+      "asin": "B09MMH943Y",
+      "name": "Get Slim Juice 2L",
+      "category": "Weight Management",
+      "title": "Kapiva Get Slim Juice",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 9760,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09MMH943Y",
+      "status": "success"
+    },
+    {
+      "asin": "B07MDK6FQR",
+      "name": "Plant Protein",
+      "category": "Nutrition & Protein",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 241,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B07MDK6FQR",
+      "status": "success"
+    },
+    {
+      "asin": "B07GWPCCGX",
+      "name": "A2 Gir Cow Ghee",
+      "category": "Nutrition & Organics",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.0,
+      "reviews": 2572,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B07GWPCCGX",
+      "status": "success"
+    },
+    {
+      "asin": "B09N3B345J",
+      "name": "Skin Glow Mix",
+      "category": "Skin & Hair Care",
+      "title": "Kapiva Skin Foods Glow Mix Ayurvedic Collagen Powder",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 776,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09N3B345J",
+      "status": "success"
+    },
+    {
+      "asin": "B09PDYXR4H",
+      "name": "Hair Care Juice",
+      "category": "Skin & Hair Care",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 743,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B09PDYXR4H",
+      "status": "success"
+    },
+    {
+      "asin": "B07SZ43SWF",
+      "name": "Aloe Vera Gel",
+      "category": "Skin & Hair Care",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 13521,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B07SZ43SWF",
+      "status": "success"
+    }
+  ],
+  "summary": {
+    "total_products": 12,
+    "successful_scrapes": 12,
+    "avg_price": 500,
+    "avg_rating": 4.05,
+    "total_reviews": 57341
+  }
+}
