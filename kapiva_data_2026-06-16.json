@@ -1,0 +1,159 @@
+{
+  "date": "2026-06-16",
+  "generated_at": "2026-06-16T09:02:55.196079+05:30",
+  "data_source": "Scrape.do + Amazon.in + Previous Day Fallback",
+  "scrape_status": "completed",
+  "products": [
+    {
+      "asin": "B098QHFPVS",
+      "name": "Kapiva Liver Care Juice",
+      "category": "Chronic Care",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.3,
+      "reviews": 1614,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B098QHFPVS",
+      "status": "success"
+    },
+    {
+      "asin": "B0BL3TN1QC",
+      "name": "Shilajit Gold Resin",
+      "category": "Men's Health",
+      "title": "Kapiva Shilajit/Shilajeet Gold Resin",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 3823,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B0BL3TN1QC",
+      "status": "success"
+    },
+    {
+      "asin": "B09TFQ9TLZ",
+      "name": "Himalayan Shilajit",
+      "category": "Men's Health",
+      "title": "Kapiva Original Himalayan Shilajit Resin",
+      "price": "500",
+      "rating": 4.1,
+      "reviews": 10119,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09TFQ9TLZ",
+      "status": "success"
+    },
+    {
+      "asin": "B0BPLVZRNZ",
+      "name": "Shilajit Gold Caps",
+      "category": "Men's Health",
+      "title": "Kapiva Shilajit Gold Capsules",
+      "price": "500",
+      "rating": 4.0,
+      "reviews": 1248,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B0BPLVZRNZ",
+      "status": "success"
+    },
+    {
+      "asin": "B09BZNDYT2",
+      "name": "Shilajit Resin 20g",
+      "category": "Men's Health",
+      "title": "Unknown",
+      "price": "500",
+      "rating": 4.1,
+      "reviews": 10135,
+      "availability": "Unknown",
+      "url": "https://www.amazon.in/dp/B09BZNDYT2",
+      "status": "success"
+    },
+    {
+      "asin": "B07DRB3D5Z",
+      "name": "Get Slim Juice 1L",
+      "category": "Weight Management",
+      "title": "Kapiva Get Slim Juice Healthy Weight Management",
+      "price": "500",
+      "rating": 3.8,
+      "reviews": 828,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B07DRB3D5Z",
+      "status": "success"
+    },
+    {
+      "asin": "B09MMH943Y",
+      "name": "Get Slim Juice 2L",
+      "category": "Weight Management",
+      "title": "Kapiva Get Slim Juice",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 9763,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09MMH943Y",
+      "status": "success"
+    },
+    {
+      "asin": "B07MDK6FQR",
+      "name": "Plant Protein",
+      "category": "Nutrition & Protein",
+      "title": "Kapiva Plant Protein | 25g Protein Per Scoop, Chocolate | With Vitamins &amp; Minerals | Pea protein Isolate - 1Kg : Amazon.in: Health &amp; Personal Care",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 242,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B07MDK6FQR",
+      "status": "success"
+    },
+    {
+      "asin": "B07GWPCCGX",
+      "name": "A2 Gir Cow Ghee",
+      "category": "Nutrition & Organics",
+      "title": "Kapiva Certified A2 Gir Cow Ghee 500ML | Traditional Vedic Bilona Method | Grassfed, Pure &amp; Healthy | Curd-Churned | Premium Glass Bottle | 100% Natural &amp; Lab-Tested | Rich in Nutrition : Amazon.in: Grocery &amp; Gourmet Foods",
+      "price": "500",
+      "rating": 4.0,
+      "reviews": 2582,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B07GWPCCGX",
+      "status": "success"
+    },
+    {
+      "asin": "B09N3B345J",
+      "name": "Skin Glow Mix",
+      "category": "Skin & Hair Care",
+      "title": "Kapiva Skin Foods Glow Mix Ayurvedic Collagen Powder",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 779,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09N3B345J",
+      "status": "success"
+    },
+    {
+      "asin": "B09PDYXR4H",
+      "name": "Hair Care Juice",
+      "category": "Skin & Hair Care",
+      "title": "Kapiva Hair Care Juice for Hair Growth &amp; Hair Fall Control",
+      "price": "500",
+      "rating": 3.9,
+      "reviews": 1597,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B09PDYXR4H",
+      "status": "success"
+    },
+    {
+      "asin": "B07SZ43SWF",
+      "name": "Aloe Vera Gel",
+      "category": "Skin & Hair Care",
+      "title": "Kapiva Pure Aloe Vera Skin Gel 500g For Face &amp; Hair | Hydrating, Moisturizing, Soothing Skin | Multipurpose Gel : Amazon.in: Beauty",
+      "price": "500",
+      "rating": 4.2,
+      "reviews": 16278,
+      "availability": "In Stock",
+      "url": "https://www.amazon.in/dp/B07SZ43SWF",
+      "status": "success"
+    }
+  ],
+  "summary": {
+    "total_products": 12,
+    "successful_scrapes": 12,
+    "avg_price": 500,
+    "avg_rating": 4.05,
+    "total_reviews": 59008
+  }
+}
