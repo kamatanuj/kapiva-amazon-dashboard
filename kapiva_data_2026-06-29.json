@@ -1,6 +1,6 @@
 {
   "date": "2026-06-29",
-  "generated_at": "2026-06-29T11:40:40.984274+05:30",
+  "generated_at": "2026-06-29T13:23:23.877431+05:30",
   "data_source": "Apify Amazon Scraper",
   "scrape_status": "completed",
   "products": [
@@ -152,7 +152,7 @@
   "summary": {
     "total_products": 12,
     "successful_scrapes": 12,
-    "avg_price": 500,
+    "avg_price": 1010,
     "avg_rating": 3.99,
     "total_reviews": 47690
   }

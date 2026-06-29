@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-23",
-  "generated_at": "2026-06-29T13:23:24.763004+05:30",
-  "data_source": "Apify Amazon Scraper (interpolated from Jun 24 real data)",
+  "date": "2026-06-28",
+  "generated_at": "2026-06-29T13:23:24.769767+05:30",
+  "data_source": "Apify Amazon Scraper (interpolated Jun 27 \u2192 Jun 29)",
   "scrape_status": "completed",
   "products": [
     {
@@ -9,9 +9,9 @@
       "name": "Kapiva Liver Care Juice",
       "category": "Chronic Care",
       "title": "Kapiva Liver Care Juice (1L) | Anti-oxidant Rich Supplement With 5 Ayurvedic Herbs | Supports Fatty Liver Management & Detox",
-      "price": 628,
+      "price": 655,
       "rating": 4.2,
-      "reviews": 1636,
+      "reviews": 1674,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B098QHFPVS",
       "status": "interpolated"
@@ -21,9 +21,9 @@
       "name": "Shilajit Gold Resin",
       "category": "Men's Health",
       "title": "Kapiva Shilajit/Shilajeet Gold Resin - 20g | 500mg/Serving | 40 Servings | Boost Muscle Growth & Stamina | Contains 24 Carat Gold | 100% Ayurvedic",
-      "price": 1254,
+      "price": 1283,
       "rating": 4.2,
-      "reviews": 6730,
+      "reviews": 6768,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B0BL3TN1QC",
       "status": "interpolated"
@@ -35,7 +35,7 @@
       "title": "Kapiva Original Himalayan Shilajit/Shilajeet Resin 40g |Super Saver Pack| 250mg/Serving | For Energy, Endurance & Vitality | 160 Servings | 100% Ayurvedic",
       "price": 1648,
       "rating": 4.1,
-      "reviews": 3211,
+      "reviews": 3227,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09TFQ9TLZ",
       "status": "interpolated"
@@ -47,7 +47,7 @@
       "title": "Kapiva Shilajit/Shilajeet Gold 60 Capsules | Contains 24 Carat Gold | For Stamina, Muscle Growth & Energy | Ashwagandha, Gokshura, Safed Musali & Other Action Herbs & 100% Ayurvedic",
       "price": 1199,
       "rating": 4.0,
-      "reviews": 3841,
+      "reviews": 3873,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B0BPLVZRNZ",
       "status": "interpolated"
@@ -57,9 +57,9 @@
       "name": "Shilajit Resin 20g",
       "category": "Men's Health",
       "title": "Kapiva Original Himalayan Shilajit/Shilajeet Resin 20g | 250mg/Serving | For Energy, Endurance & Vitality | 80 Servings | 100% Ayurvedic",
-      "price": 699,
+      "price": 849,
       "rating": 4.0,
-      "reviews": 10129,
+      "reviews": 10176,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09BZNDYT2",
       "status": "interpolated"
@@ -71,7 +71,7 @@
       "title": "Kapiva Get Slim Juice - Healthy Weight Management Through 12 Ayurvedic Herbs Aids Metabolism and Digestion - 1L",
       "price": 479,
       "rating": 3.8,
-      "reviews": 9749,
+      "reviews": 9780,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B07DRB3D5Z",
       "status": "interpolated"
@@ -83,7 +83,7 @@
       "title": "Kapiva Get Slim Juice (2L) Bottle,Pack| Healthy Weight Management Through 12 Ayurvedic Herbs | Aids Metabolism and Digestion - Super Saver Pack of 2",
       "price": 978,
       "rating": 3.9,
-      "reviews": 1116,
+      "reviews": 1120,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09MMH943Y",
       "status": "interpolated"
@@ -95,7 +95,7 @@
       "title": "Kapiva Plant Protein | 25g Protein Per Scoop, Chocolate | With Vitamins & Minerals | Pea protein Isolate - 1Kg",
       "price": 1779,
       "rating": 3.9,
-      "reviews": 756,
+      "reviews": 758,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B07MDK6FQR",
       "status": "interpolated"
@@ -105,9 +105,9 @@
       "name": "A2 Gir Cow Ghee",
       "category": "Nutrition & Organics",
       "title": "Kapiva Certified A2 Gir Cow Ghee 500ML | Traditional Vedic Bilona Method | Grassfed, Pure & Healthy | Curd-Churned | Premium Glass Bottle | Lab-Tested | Rich in Nutrition",
-      "price": 744,
+      "price": 742,
       "rating": 4.0,
-      "reviews": 1376,
+      "reviews": 1382,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B07GWPCCGX",
       "status": "interpolated"
@@ -119,7 +119,7 @@
       "title": "Kapiva Skin Foods Glow Mix | Ayurvedic Skin Supplement, Collagen Powder | Skincare for Glowing & Healthy Skin (30 Sachets)",
       "price": 888,
       "rating": 3.7,
-      "reviews": 2461,
+      "reviews": 2470,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09N3B345J",
       "status": "interpolated"
@@ -131,7 +131,7 @@
       "title": "Kapiva Hair Care Juice (2L) | For Hair Growth & Hair Fall Control | 100% Ayurvedic Hair Care with Amla, Noni, Bhringraj and Ashwagandha - Super Saver Pack of 2",
       "price": 1452,
       "rating": 3.9,
-      "reviews": 198,
+      "reviews": 199,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B09PDYXR4H",
       "status": "interpolated"
@@ -143,7 +143,7 @@
       "title": "Kapiva Pure Aloe Vera Skin Gel 500g For Face & Hair | Hydrating, Moisturizing, Soothing Skin | Multipurpose Gel",
       "price": 349,
       "rating": 4.2,
-      "reviews": 6202,
+      "reviews": 6228,
       "availability": "In Stock",
       "url": "https://www.amazon.in/dp/B07SZ43SWF",
       "status": "interpolated"
@@ -152,8 +152,8 @@
   "summary": {
     "total_products": 12,
     "successful_scrapes": 0,
-    "avg_price": 1008,
+    "avg_price": 1025,
     "avg_rating": 3.99,
-    "total_reviews": 47405
+    "total_reviews": 47655
   }
 }
