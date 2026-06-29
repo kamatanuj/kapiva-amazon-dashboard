@@ -6,7 +6,7 @@ import csv
 import os
 
 APIFY_TOKEN = os.environ.get('APIFY_API_TOKEN')
-ACTOR_ID = os.environ.get('APIFY_ACTOR', 'XVDTQc4a7MDTqSTMJ')
+ACTOR_ID = 'XVDTQc4a7MDTqSTMJ'  # hardcode correct Amazon scraper actor; ignore broken env override
 
 ist = timezone(timedelta(hours=5, minutes=30))
 today = datetime.now(ist).strftime('%Y-%m-%d')

@@ -27,16 +27,18 @@ target_products = [
 ]
 
 asins = list(dict.fromkeys([p['asin'] for p in target_products]))
-search_urls = [{'url': f'https://www.amazon.in/s?k={asin}', 'method': 'GET'} for asin in asins]
+search_urls = [{'url': f'https://www.amazon.in/dp/{asin}', 'method': 'GET'} for asin in asins]
 
 headers = {'Authorization': f'Bearer {APIFY_TOKEN}', 'Content-Type': 'application/json'}
+
 actor_input = {
-    'categoryUrls': search_urls,
+    'startUrls': search_urls,
     'proxyConfiguration': {'useApifyProxy': True},
-    'maxResults': len(asins) * 5,
+    'maxItems': len(asins) * 3,
 }
 
 print(f'Starting Apify run for {len(asins)} ASINs on {today}')
+print(f'Actor ID: {ACTOR_ID}')
 start = requests.post(
     f'https://api.apify.com/v2/acts/{ACTOR_ID}/runs',
     headers=headers,
@@ -44,7 +46,7 @@ start = requests.post(
     timeout=60
 )
 print('Start status:', start.status_code)
-print(start.text[:200])
+print(start.text[:500])
 
 if start.status_code != 201:
     raise RuntimeError(f'Failed to start actor run: {start.status_code} {start.text}')
@@ -106,10 +108,14 @@ def get_field(item, keys):
 
 asin_map = {}
 for it in items:
-    asin = it.get('asin') or it.get('id')
+    asin = it.get('asin')
+    url = it.get('url', '')
+    if not asin and '/dp/' in url:
+        asin = url.split('/dp/')[-1].split('/')[0].split('?')[0]
+    if not asin:
+        asin = it.get('id')
     if not asin:
         continue
-    # last one wins; could prefer exact match if needed
     asin_map[asin] = it
 
 results = []
@@ -125,7 +131,7 @@ for p in target_products:
             price = 500
         rating_raw = get_field(item, ['stars', 'rating', 'ratingScore', 'averageRating'])
         try:
-            rating = round(float(rating_raw), 1)
+            rating = round(float(str(rating_raw).replace(',', '').split(' ')[0]), 1)
         except Exception:
             rating = None
         reviews_raw = get_field(item, ['reviewsCount', 'reviews', 'totalReviews'])
@@ -148,7 +154,7 @@ for p in target_products:
         successful += 1
     else:
         # fallback to previous day data if available
-        prev_file = f'kapiva_data_2026-06-25.json'
+        prev_file = f'kapiva_data_2026-06-21.json'
         fallback = None
         if os.path.exists(prev_file):
             try:
@@ -229,3 +235,5 @@ except Exception as e:
     print('Excel not saved:', e)
 
 print(f'\nSummary: {len(results)} products, {successful} successful, avg rating {avg_rating}, total reviews {total_reviews}')
+with open(f'kapiva_data_{today}.json') as f:
+    print(json.dumps(json.load(f)['products'], indent=2))
