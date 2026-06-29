@@ -1,0 +1,18 @@
+Starting Apify run for 12 ASINs on 2026-06-29
+Actor ID: XVDTQc4a7MDTqSTMJ
+Start status: 400
+{
+  "error": {
+    "type": "invalid-input",
+    "message": "Input is not valid: Field input.categoryUrls is required"
+  }
+}
+Traceback (most recent call last):
+  File "/root/kapiva/scrape_june26_fixedactor.py", line 52, in <module>
+    raise RuntimeError(f'Failed to start actor run: {start.status_code} {start.text}')
+RuntimeError: Failed to start actor run: 400 {
+  "error": {
+    "type": "invalid-input",
+    "message": "Input is not valid: Field input.categoryUrls is required"
+  }
+}

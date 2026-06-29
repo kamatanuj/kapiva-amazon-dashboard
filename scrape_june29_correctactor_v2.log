@@ -1,0 +1,21 @@
+Starting Apify run for 12 ASINs on 2026-06-29
+Start status: 201
+{
+  "data": {
+    "id": "YF3S9HxEqHh1Jo1hc",
+    "actId": "XVDTQc4a7MDTqSTMJ",
+    "userId": "jp8aCECV5SVi7zYMc",
+    "startedAt": "2026-06-29T06:09:15.927Z",
+    "finishedAt": null,
+    "status": "RE
+Run ID: YF3S9HxEqHh1Jo1hc
+  [0] status: RUNNING
+  [1] status: RUNNING
+  [2] status: RUNNING
+  [3] status: SUCCEEDED
+Got 41 items from Apify
+Saved kapiva_data_2026-06-29.json
+Saved kapiva_data_2026-06-29.csv
+Saved kapiva_data_2026-06-29.xlsx
+
+Summary: 12 products, 12 successful, avg rating 3.99, total reviews 47690
