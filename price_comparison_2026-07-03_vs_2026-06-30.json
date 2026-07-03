@@ -1,0 +1,126 @@
+{
+  "comparison_date": "2026-07-03",
+  "previous_date": "2026-06-30",
+  "changes": [
+    {
+      "asin": "B098QHFPVS",
+      "name": "Kapiva Liver Care Juice",
+      "prev_price": 655,
+      "today_price": 655,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B0BL3TN1QC",
+      "name": "Shilajit Gold Resin",
+      "prev_price": 1312,
+      "today_price": 1249,
+      "diff": -63,
+      "pct_change": -4.8,
+      "direction": "decrease",
+      "color": "green"
+    },
+    {
+      "asin": "B09TFQ9TLZ",
+      "name": "Himalayan Shilajit",
+      "prev_price": 1648,
+      "today_price": 1648,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B0BPLVZRNZ",
+      "name": "Shilajit Gold Caps",
+      "prev_price": 1199,
+      "today_price": 933,
+      "diff": -266,
+      "pct_change": -22.2,
+      "direction": "decrease",
+      "color": "green"
+    },
+    {
+      "asin": "B09BZNDYT2",
+      "name": "Shilajit Resin 20g",
+      "prev_price": 999,
+      "today_price": 839,
+      "diff": -160,
+      "pct_change": -16.0,
+      "direction": "decrease",
+      "color": "green"
+    },
+    {
+      "asin": "B07DRB3D5Z",
+      "name": "Get Slim Juice 1L",
+      "prev_price": 479,
+      "today_price": 479,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B09MMH943Y",
+      "name": "Get Slim Juice 2L",
+      "prev_price": 978,
+      "today_price": 978,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B07MDK6FQR",
+      "name": "Plant Protein",
+      "prev_price": 1779,
+      "today_price": 1779,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B07GWPCCGX",
+      "name": "A2 Gir Cow Ghee",
+      "prev_price": 743,
+      "today_price": 699,
+      "diff": -44,
+      "pct_change": -5.9,
+      "direction": "decrease",
+      "color": "green"
+    },
+    {
+      "asin": "B09N3B345J",
+      "name": "Skin Glow Mix",
+      "prev_price": 888,
+      "today_price": 888,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B09PDYXR4H",
+      "name": "Hair Care Juice",
+      "prev_price": 1452,
+      "today_price": 1452,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    },
+    {
+      "asin": "B07SZ43SWF",
+      "name": "Aloe Vera Gel",
+      "prev_price": 349,
+      "today_price": 349,
+      "diff": 0,
+      "pct_change": 0.0,
+      "direction": "no change",
+      "color": "gray"
+    }
+  ]
+}
